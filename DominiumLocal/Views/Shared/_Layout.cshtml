@@ -20,23 +20,28 @@
     <link rel="stylesheet" href="/template/assets/css/login.css">
 </head>
 <body>
-    <header class="header-area header-sticky">
+    <header class="header-area">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="/Index.html" class="logo">
+                        <a href="@Url.Action("Index", "Home")" class="logo">
                             <h1>Dominium</h1>
                         </a>
+
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li><a href="/Index.html" class="active">Home</a></li>
+                            <li>
+                                @Html.ActionLink("Home", "Index", "Home")
+                            </li>
                             <li><a href="#">Properties</a></li>
                             <li><a href="#">Property Details</a></li>
                             <li><a href="#">Contact Us</a></li>
-                            <li><a href="/Login.cshtml">Log In</a></li>
+                            <li>
+                                @Html.ActionLink("Login", "Login", "Home")
+                            </li>
                             <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
                         </ul>
                         <a class='menu-trigger'>
@@ -49,6 +54,13 @@
         </div>
     </header>
     @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="col-lg-8">
+                <p>Copyright © 2023 Dominium. All rights reserved.
+            </div>
+        </div>
+    </footer>
     <script src="/template/vendor/jquery/jquery.min.js"></script>
     <script src="/template/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/template/assets/js/isotope.min.js"></script>
