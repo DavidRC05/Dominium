@@ -120,10 +120,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +170,7 @@
     <Content Include="template\assets\css\fontawesome.css" />
     <Content Include="template\assets\css\login.css" />
     <Content Include="template\assets\css\owl.css" />
+    <Content Include="template\assets\css\register.css" />
     <Content Include="template\assets\css\templatemo-villa-agency.css" />
     <Content Include="template\assets\images\banner-01.jpg" />
     <Content Include="template\assets\images\banner-02.jpg" />
@@ -216,7 +219,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Acceso\Login.cshtml" />
     <Content Include="template\assets\webfonts\fa-brands-400.ttf" />
     <Content Include="template\assets\webfonts\fa-brands-400.woff2" />
     <Content Include="template\assets\webfonts\fa-regular-400.ttf" />
@@ -227,10 +230,10 @@
     <Content Include="template\assets\webfonts\fa-v4compatibility.woff2" />
     <Content Include="template\vendor\jquery\jquery.min.map" />
     <Content Include="template\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Acceso\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
