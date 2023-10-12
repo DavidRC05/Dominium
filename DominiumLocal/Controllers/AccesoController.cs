@@ -13,7 +13,7 @@ namespace DominiumLocal.Controllers
 {
     public class AccesoController : Controller
     {
-        static string conn = "server= DESKTOP-SV2TH5J; database=DominiumDB; integrated security=true";
+        static string conn = "Data Source=DESKTOP-SV2TH5J;Initial Catalog=DominiumDB;Integrated Security=true";
 
         // GET: Acceso
         public ActionResult Login()
@@ -27,59 +27,38 @@ namespace DominiumLocal.Controllers
         }
 
 
-        // POST: Acceso/Register (Procesa el formulario de registro)
         [HttpPost]
-        public ActionResult CRegister(usuario ousuario)
+        public ActionResult CRegister(usuario modelo)
         {
-            if (ousuario.Password == ousuario.Cpassword)
+            if (ModelState.IsValid)
             {
-                ousuario.Password = ConvertToSHA256(ousuario.Password);
+                // Aquí debes agregar la lógica para insertar los datos en la base de datos
+                // Puedes usar ADO.NET o Entity Framework para esta tarea
 
-                try
+                // Ejemplo con Entity Framework
+                using (conexiondb contexto = new conexiondb())
                 {
-                    using (SqlConnection cn = new SqlConnection(conn))
+                    var usuario = new usuario
                     {
-                        cn.Open();
+                        FirstName = modelo.FirstName,
+                        LastName = modelo.LastName,
+                        Email = modelo.Email,
+                        PhoneNumber = modelo.PhoneNumber,
+                        Password = modelo.Password,
+                        Cpassword = modelo.Cpassword
+                        // Más campos según tu modelo de datos
+                    };
 
-                        string insertSql = "INSERT INTO Users (FirstName, LastName, BirthdayDate, Gender, Email, PhoneNumber, Password) " +
-                                           "VALUES (@FirstName, @LastName, @BirthdayDate, @Gender, @Email, @PhoneNumber, @Password)";
-
-                        using (SqlCommand cmd = new SqlCommand(insertSql, cn))
-                        {
-                            cmd.Parameters.AddWithValue("@FirstName", ousuario.FirstName);
-                            cmd.Parameters.AddWithValue("@LastName", ousuario.LastName);
-                            cmd.Parameters.AddWithValue("@BirthdayDate", ousuario.BirthdayDate);
-                            cmd.Parameters.AddWithValue("@Gender", ousuario.Gender);
-                            cmd.Parameters.AddWithValue("@Email", ousuario.Email);
-                            cmd.Parameters.AddWithValue("@PhoneNumber", ousuario.PhoneNumber);
-                            cmd.Parameters.AddWithValue("@Password", ousuario.Password);
-
-                            int rowsAffected = cmd.ExecuteNonQuery();
-
-                            if (rowsAffected > 0)
-                            {
-                                // Redirige al usuario a una página de éxito después del registro.
-                                return RedirectToAction("Login");
-                            }
-                            else
-                            {
-                                ViewBag.Mensaje = "No se pudo insertar el usuario.";
-                            }
-                        }
-                    }
+                    contexto.Usuarios.Add(usuario);
+                    contexto.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    ViewBag.Mensaje = "Se ha producido un error durante el registro: " + ex.Message;
-                    
-                }
-            }
-            else
-            {
-                ViewBag.Mensaje = "Las contraseñas no coinciden.";
+
+                // Redirige a una página de confirmación u otra acción después del registro
+                return RedirectToAction("Login");
             }
 
-            return View("Register"); // Renderiza la vista de registro y muestra mensajes en la vista.
+            // Si la validación falla, muestra la vista de registro nuevamente con errores
+            return View("Register", modelo);
         }
 
 
