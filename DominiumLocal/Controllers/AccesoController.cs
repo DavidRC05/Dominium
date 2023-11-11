@@ -16,12 +16,31 @@ namespace DominiumLocal.Controllers
     {
         userModel userModel = new userModel();
 
-        // GET: Acceso
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(usersEntity entidad)
+        {
+            var resp = userModel.Login(entidad);
+
+            if (resp != null)
+            {
+                Session["ConUsuario"] = resp.Password;
+                Session["Nombre"] = resp.FirstName;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "Compruebe la información de sus credenciales";
+                return View();
+            }
+        }
+
+        [HttpGet]
         public ActionResult Register()
         {
             return View();

@@ -39,10 +39,23 @@
                             <li><a href="#">Properties</a></li>
                             <li><a href="#">Property Details</a></li>
                             <li><a href="#">Contact Us</a></li>
-                            <li>
-                                @Html.ActionLink("Login", "Login", "Acceso")
-                            </li>
-                            <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                            @if (Session["ConUsuario"] != null)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user"></i> @Session["Nombre"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Acceso")"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    @Html.ActionLink("Login", "Login", "Acceso", null, new { @class = "nav-link" })
+                                </li>
+                            }
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

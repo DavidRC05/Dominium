@@ -29,6 +29,26 @@ namespace DominiumAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("IniciarSesion")]
+        public TUsers IniciarSesion(userEntity entidad)
+        {
+            try
+            {
+                using (var context = new DominiumEntities())
+                {
+                    return (from x in context.TUsers
+                                 where x.Email == entidad.Email
+                                    && x.Password == entidad.Password
+                                 select x).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
 
     }
 }
