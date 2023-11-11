@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DominiumLocal.Models
+namespace DominiumAPI.Entity
 {
-    public class usuario
+    public class userEntity
     {
         [Key] public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -15,6 +15,6 @@ namespace DominiumLocal.Models
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public string Cpassword { get; set; }
+        public int Rol { get; set; }
     }
-
 }

@@ -1,81 +1,108 @@
-﻿@{
-    ViewBag.Title = "Register";
+﻿@model DominiumLocal.Entity.usersEntity
+
+@{
+    ViewBag.Title = "Registro";
+    Layout = null;
 }
 
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                    <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewBag.Title</title>
 
-                        <form action="@Url.Action("CRegister", "Acceso")" method="post">
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
+    <!-- Bootstrap core CSS -->
+    <link href="/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-                                    <div class="form-outline">
-                                        <input type="text" id="firstName" name="firstname" class="form-control form-control-lg" />
-                                        <label class="form-label" for="firstName">First Name</label>
+    <!-- Aquí puedes incluir tus estilos específicos para esta vista -->
+    <link rel="stylesheet" href="../../assets/css/register.css" />
+
+    <!-- Si necesitas estilos generales, puedes incluirlos aquí o referenciar a una hoja de estilo global -->
+    <link rel="stylesheet" href="ruta/a/tu/estilo/global.css" />
+</head>
+<body>
+
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Formulario de Registro</h3>
+
+                            @using (Html.BeginForm("CRegister", "Acceso", FormMethod.Post))
+                            {
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Nombre</label>
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-lg", placeholder = "Nombre" })
+                                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="col-md-6 mb-4">
-
-                                    <div class="form-outline">
-                                        <input type="text" id="lastName" name="lastname" class="form-control form-control-lg" />
-                                        <label class="form-label" for="lastName">Last Name</label>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Apellido</label>
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-lg", placeholder = "Apellido" })
+                                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div class="form-outline">
-                                        <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" />
-                                        <label class="form-label" for="emailAddress">Email</label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Email</label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", placeholder = "Email" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div class="form-outline">
-                                        <input type="tel" id="phoneNumber" name="phonenumber" class="form-control form-control-lg" />
-                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Telefono</label>
+                                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control form-control-lg", placeholder = "0000 - 0000" })
+                                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div class="form-outline">
-                                        <input type="password" id="Password" name="password" class="form-control form-control-lg" />
-                                        <label class="form-label" for="Password">Password</label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Contraseña</label>
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Contraseña" })
+                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
-                                </div>
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div class="form-outline">
-                                        <input type="password" id="confirmpassword" name="cpassword" class="form-control form-control-lg" />
-                                        <label class="form-label" for="confirmpassword">Confirm Password</label>
+                                    <div class="col-md-6 mb-4 pb-2">
+                                        <div class="form-outline">
+                                            <label for="firstName" class="form-label">Confirmar Contraseña</label>
+                                            @Html.PasswordFor(m => m.Cpassword, new { @class = "form-control form-control-lg", placeholder = "Confirmar Contraseña" })
+                                            @Html.ValidationMessageFor(m => m.Cpassword, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-
                                 </div>
-                            </div>
-
-                            <div class="mt-4 pt-2">
-                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
-                            </div>
-
-                        </form>
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-outline">
+                                            <label for="rol" class="form-label">Rol</label>
+                                            @Html.DropDownListFor(m => m.Rol, new SelectList(new[]
+                                            {
+                                                new SelectListItem { Value = "1", Text = "Comprador" },
+                                                new SelectListItem { Value = "2", Text = "Vendedor" },
+                                            }, "Value", "Text"), "Seleccione un Rol", new { @class = "form-control form-control-lg", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.Rol, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-2 d-flex justify-content-center">
+                                    <input class="btn btn-primary btn-lg" type="submit" value="Enviar" />
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
