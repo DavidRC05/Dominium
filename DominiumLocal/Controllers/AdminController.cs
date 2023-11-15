@@ -9,10 +9,6 @@ namespace DominiumLocal.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Dashboard()
-        {
-            return View();
-        }
         public ActionResult Propiedades()
         {
             return View();
@@ -26,6 +22,10 @@ namespace DominiumLocal.Controllers
             return View();
         }
         public ActionResult AgregarPropiedad()
+        {
+            return View();
+        }
+        public ActionResult Menu()
         {
             return View();
         }

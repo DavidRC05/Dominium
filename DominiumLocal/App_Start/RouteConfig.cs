@@ -27,7 +27,7 @@ namespace DominiumLocal
             routes.MapRoute(
                 name: "Admin",
                 url: "Admin/{action}",
-                defaults: new { controller = "Admin", action = "Dashboard" }
+                defaults: new { controller = "Admin", action = "Menu" }
             );
 
         }
