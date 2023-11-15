@@ -12,29 +12,31 @@
                          class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <!-- conecta con el controlador de acceso -->
                     @using (Html.BeginForm("Login", "Acceso", FormMethod.Post, new { @class = "pt-3" }))
                     {
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             @Html.LabelFor(m => m.Email, new { @class = "form-label" })
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", placeholder = "Enter a valid email address" })
+                            @Html.TextBoxFor(m => m.Email,
+                            new { @class = "form-control form-control-lg", placeholder = "Enter a valid email address" }
+                            )
                         </div>
-
                         <!-- Password input -->
                         <div class="form-outline mb-3">
                             @Html.LabelFor(m => m.Password, new { @class = "form-label" })
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Enter password" })
                         </div>
-
                         <div class="d-flex justify-content-between align-items-center">
                             <a href="#!" class="text-body">Forgot password?</a>
                         </div>
-
                         <div class="text-center text-lg-start mt-4 pt-2">
+                            <!-- Boton envia datos de formulario para inicio de sesion -->
                             <button type="submit" class="btn btn-primary btn-lg"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                Login
+                                      Login
                             </button>
+                            <!-- Enlace de registro -->
                             <p class="small fw-bold mt-2 pt-1 mb-0">
                                 Don't have an account? <a href="@Url.Action("Register", "Acceso")" class="link-danger">Register</a>
                             </p>
