@@ -13,5 +13,21 @@ namespace DominiumLocal.Controllers
         {
             return View();
         }
+        public ActionResult Propiedades()
+        {
+            return View();
+        }
+        public ActionResult Usuarios()
+        {
+            return View();
+        }
+        public ActionResult Vendedores()
+        {
+            return View();
+        }
+        public ActionResult AgregarPropiedad()
+        {
+            return View();
+        }
     }
 }
