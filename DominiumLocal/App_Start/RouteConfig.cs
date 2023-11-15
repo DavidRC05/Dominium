@@ -24,6 +24,11 @@ namespace DominiumLocal
                 url: "Acceso/{action}",
                 defaults: new { controller = "Acceso", action = "Login" }
             );
+            routes.MapRoute(
+                name: "Admin",
+                url: "Admin/{action}",
+                defaults: new { controller = "Admin", action = "Dashboard" }
+            );
 
         }
     }
