@@ -44,7 +44,7 @@
     top: 5rem;
     padding-top: 0;
     z-index: 2;
-    background-color: #343957;
+    background-color: #212529;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: all .2s ease;
     // border-top-left-radius: 5px;
@@ -63,28 +63,34 @@
         // border-top-left-radius: 5px;
         // border-top-right-radius: 5px;
     }
+
     @include custommq($min: 1200px, $max: 1350px) {
         width: 14.375rem;
     }
+
     ul {
         padding: 0;
         margin: 0;
         list-style: none;
     }
+
     .metismenu {
         display: flex;
         flex-direction: column;
+
         &.fixed {
             position: fixed;
             top: 0;
             width: 100%;
             left: 0;
         }
-        &>li {
+
+        & > li {
             display: flex;
             flex-direction: column;
+
             a {
-                &>i {
+                & > i {
                     //icon will get color from parent "a"
                     font-size: 1.125rem;
                     display: inline-block;
@@ -95,13 +101,15 @@
                     top: -2px;
                 }
             }
-            &>a {
+
+            & > a {
                 color: rgba($color: $body-color, $alpha: 1);
             }
+
             &:hover,
             &:focus,
             &.mm-active {
-                &>a {
+                & > a {
                     background-color: lighten($color: $primary, $amount: 5%);
                     color: $white;
                     // @include respond('desktop') {
@@ -112,15 +120,18 @@
                     // }
                 }
             }
+
             &.mm-active {
                 ul {
                     background-color: $body-bg;
+
                     ul {
                         background-color: $body-bg;
                     }
                 }
             }
         }
+
         li {
             position: relative;
         }
@@ -134,12 +145,14 @@
             a {
                 padding-left: 54px;
                 font-weight: 300;
+
                 &:hover,
                 &:focus,
                 &.mm-active {
                     text-decoration: none;
                     color: $white;
                 }
+
                 @at-root [direction="rtl"] & {
                     padding-right: 54px;
                 }
@@ -157,6 +170,7 @@
                 }
             }
         }
+
         a {
             position: relative;
             display: block;
@@ -165,6 +179,7 @@
             color: rgba($color: $body-color, $alpha: 1);
             text-decoration: none;
         }
+
         .has-arrow {
             &:after {
                 width: .35rem;
@@ -176,8 +191,9 @@
                 transform: rotate(-225deg) translateY(-50%);
             }
         }
+
         .has-arrow[aria-expanded=true]:after,
-        .mm-active>.has-arrow:after {
+        .mm-active > .has-arrow:after {
             -webkit-transform: rotate(-135deg) translateY(-50%);
             transform: rotate(-135deg) translateY(-50%);
         }

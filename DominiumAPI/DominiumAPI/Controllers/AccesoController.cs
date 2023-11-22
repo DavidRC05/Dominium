@@ -16,9 +16,8 @@ namespace DominiumAPI.Controllers
         {
             try
             {
-                using (var context = new DominiumEntities())
+                using (var context = new DominiumEntities1())
                 {
-
                     context.RegisterUsers(entidad.FirstName, entidad.LastName, entidad.Email, entidad.PhoneNumber, entidad.Password, entidad.Rol);
                     return "OK";
                 }
@@ -35,7 +34,7 @@ namespace DominiumAPI.Controllers
         {
             try
             {
-                using (var context = new DominiumEntities())
+                using (var context = new DominiumEntities1())
                 {
                     return (from x in context.TUsers
                                  where x.Email == entidad.Email

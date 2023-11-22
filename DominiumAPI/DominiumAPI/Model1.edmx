@@ -4,14 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DominiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="DominiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TUsers">
           <Key>
             <PropertyRef Name="UserID" />
@@ -22,37 +15,21 @@
           <Property Name="Email" Type="nvarchar" MaxLength="255" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
-          <Property Name="RoleID" Type="int" />
+          <Property Name="Rol" Type="int" />
         </EntityType>
-        <Association Name="FK__TUsers__RoleID__3A81B327">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-          <End Role="TUsers" Type="Self.TUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="TUsers">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="RegisterUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
           <Parameter Name="PhoneNumber" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
-          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="Rol" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DominiumModelStoreContainer">
-          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUsers" EntityType="Self.TUsers" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__TUsers__RoleID__3A81B327" Association="Self.FK__TUsers__RoleID__3A81B327">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="TUsers" EntitySet="TUsers" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DominiumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -66,77 +43,35 @@
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RoleID" Type="Int32" />
-          <NavigationProperty Name="Roles" Relationship="DominiumModel.FK__TUsers__RoleID__3A81B327" FromRole="TUsers" ToRole="Roles" />
+          <Property Name="Rol" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="DominiumEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DominiumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TUsers" EntityType="Self.TUsers" />
-          <FunctionImport Name="RegisterUser">
-            <Parameter Name="FirstName" Mode="In" Type="String" />
-            <Parameter Name="LastName" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="Roles" EntityType="DominiumModel.Roles" />
-          <AssociationSet Name="FK__TUsers__RoleID__3A81B327" Association="DominiumModel.FK__TUsers__RoleID__3A81B327">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="TUsers" EntitySet="TUsers" />
-          </AssociationSet>
           <FunctionImport Name="RegisterUsers">
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="PhoneNumber" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="Rol" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TUsers" Relationship="DominiumModel.FK__TUsers__RoleID__3A81B327" FromRole="Roles" ToRole="TUsers" />
-        </EntityType>
-        <Association Name="FK__TUsers__RoleID__3A81B327">
-          <End Type="DominiumModel.Roles" Role="Roles" Multiplicity="0..1" />
-          <End Type="DominiumModel.TUsers" Role="TUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="TUsers">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DominiumModelStoreContainer" CdmEntityContainer="DominiumEntities">
+        <EntityContainerMapping StorageEntityContainer="DominiumModelStoreContainer" CdmEntityContainer="DominiumEntities1">
           <EntitySetMapping Name="TUsers">
             <EntityTypeMapping TypeName="DominiumModel.TUsers">
               <MappingFragment StoreEntitySet="TUsers">
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="DominiumModel.Roles">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

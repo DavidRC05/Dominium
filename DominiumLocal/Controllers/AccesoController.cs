@@ -40,11 +40,7 @@ namespace DominiumLocal.Controllers
             {
                 Session["Nombre"] = resp.FirstName;
                 Session["ConUsuario"] = resp.Password;
-                Session["RoleID"] = resp.Rol;
-                if (resp.FirstName == null)
-                {
-                    return RedirectToAction("Login", "Acceso");
-                }
+                Session["Rol"] = resp.Rol;
                 return RedirectToAction("Index", "Home");
             }
             else

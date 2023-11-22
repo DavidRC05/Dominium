@@ -4158,6 +4158,7 @@
     <Content Include="template\assets\css\login.css" />
     <Content Include="template\assets\css\owl.css" />
     <Content Include="template\assets\css\register.css" />
+    <Content Include="template\assets\css\styleshome.css" />
     <Content Include="template\assets\css\templatemo-villa-agency.css" />
     <Content Include="template\assets\images\banner-01.jpg" />
     <Content Include="template\assets\images\banner-02.jpg" />

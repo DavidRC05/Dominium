@@ -15,10 +15,10 @@ namespace DominiumAPI
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class DominiumEntities : DbContext
+    public partial class DominiumEntities1 : DbContext
     {
-        public DominiumEntities()
-            : base("name=DominiumEntities")
+        public DominiumEntities1()
+            : base("name=DominiumEntities1")
         {
         }
     
@@ -28,9 +28,8 @@ namespace DominiumAPI
         }
     
         public virtual DbSet<TUsers> TUsers { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
     
-        public virtual int RegisterUser(string firstName, string lastName, string email, string phoneNumber, string password, Nullable<int> roleID)
+        public virtual int RegisterUsers(string firstName, string lastName, string email, string phoneNumber, string password, Nullable<int> rol)
         {
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("FirstName", firstName) :
@@ -52,40 +51,11 @@ namespace DominiumAPI
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
     
-            var roleIDParameter = roleID.HasValue ?
-                new ObjectParameter("RoleID", roleID) :
-                new ObjectParameter("RoleID", typeof(int));
+            var rolParameter = rol.HasValue ?
+                new ObjectParameter("Rol", rol) :
+                new ObjectParameter("Rol", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", firstNameParameter, lastNameParameter, emailParameter, phoneNumberParameter, passwordParameter, roleIDParameter);
-        }
-    
-        public virtual int RegisterUsers(string firstName, string lastName, string email, string phoneNumber, string password, Nullable<int> roleID)
-        {
-            var firstNameParameter = firstName != null ?
-                new ObjectParameter("FirstName", firstName) :
-                new ObjectParameter("FirstName", typeof(string));
-    
-            var lastNameParameter = lastName != null ?
-                new ObjectParameter("LastName", lastName) :
-                new ObjectParameter("LastName", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var phoneNumberParameter = phoneNumber != null ?
-                new ObjectParameter("PhoneNumber", phoneNumber) :
-                new ObjectParameter("PhoneNumber", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
-    
-            var roleIDParameter = roleID.HasValue ?
-                new ObjectParameter("RoleID", roleID) :
-                new ObjectParameter("RoleID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUsers", firstNameParameter, lastNameParameter, emailParameter, phoneNumberParameter, passwordParameter, roleIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUsers", firstNameParameter, lastNameParameter, emailParameter, phoneNumberParameter, passwordParameter, rolParameter);
         }
     }
 }

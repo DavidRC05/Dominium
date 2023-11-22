@@ -13,7 +13,7 @@
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/template/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="/template/assets/css/templatemo-villa-agency.css">
+    <link rel="stylesheet" href="/template/assets/css/styleshome.css">
     <link rel="stylesheet" href="/template/assets/css/owl.css">
     <link rel="stylesheet" href="/template/assets/css/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
@@ -38,26 +38,25 @@
                             </li>
                             <li><a href="#">Propiedades</a></li>
                             <li><a href="#">Contactanos</a></li>
-
-                            @if (Session["ConUsuario"] != null && (int)Session["RoleID"] == 2)
+                            @if (Session["ConUsuario"] != null && (int)Session["Rol"] == 2)
                             {
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-user"></i> @Session["Nombre"]
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="@Url.Action("Logout", "Acceso")"><i class="fas fa-sign-out-alt"></i> Logout</a>
                                         <a class="dropdown-item" href="@Url.Action("Menu", "Admin")"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                                     </div>
                                 </li>
                             }
-                            else if (Session["ConUsuario"] != null && (int)Session["RoleID"] == 1)
+                            else if (Session["ConUsuario"] != null && (int)Session["Rol"] == 1)
                             {
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-user"></i> @Session["Nombre"]
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="@Url.Action("Logout", "Acceso")"><i class="fas fa-sign-out-alt"></i> Logout</a>
                                     </div>
                                 </li>
@@ -65,10 +64,10 @@
                             else
                             {
                                 <li class="">
-                                    @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "" })
+                                    @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "p-2 pt-0" })
                                 </li>
                                 <li class="">
-                                    @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "" })
+                                    @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "p-2 pt-0" })
                                 </li>
                             }
                         </ul>

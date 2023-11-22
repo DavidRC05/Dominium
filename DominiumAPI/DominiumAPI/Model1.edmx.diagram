@@ -4,10 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d96dfd4535f44616b0c95e0ce9529865" Name="Diagram1">
+      <Diagram DiagramId="3a6590da90544031ae5ad6564f094833" Name="Diagram1">
         <EntityTypeShape EntityType="DominiumModel.TUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DominiumModel.Roles" Width="1.5" PointX="0.75" PointY="5.25" />
-        <AssociationConnector Association="DominiumModel.FK__TUsers__RoleID__3A81B327" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
