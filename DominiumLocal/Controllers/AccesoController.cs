@@ -22,6 +22,15 @@ namespace DominiumLocal.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public ActionResult Login(usersEntity entidad)
         {
@@ -29,8 +38,13 @@ namespace DominiumLocal.Controllers
 
             if (resp != null)
             {
-                Session["ConUsuario"] = resp.Password;
                 Session["Nombre"] = resp.FirstName;
+                Session["ConUsuario"] = resp.Password;
+                Session["RoleID"] = resp.Rol;
+                if (resp.FirstName == null)
+                {
+                    return RedirectToAction("Login", "Acceso");
+                }
                 return RedirectToAction("Index", "Home");
             }
             else

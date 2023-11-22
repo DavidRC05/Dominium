@@ -34,15 +34,27 @@
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li>
-                                @Html.ActionLink("Home", "Index", "Home")
+                                @Html.ActionLink("Inicio", "Index", "Home")
                             </li>
-                            <li><a href="#">Properties</a></li>
-                            <li><a href="#">Property Details</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            @if (Session["ConUsuario"] != null)
+                            <li><a href="#">Propiedades</a></li>
+                            <li><a href="#">Contactanos</a></li>
+
+                            @if (Session["ConUsuario"] != null && (int)Session["RoleID"] == 2)
                             {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user"></i> @Session["Nombre"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Acceso")"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                        <a class="dropdown-item" href="@Url.Action("Menu", "Admin")"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                                    </div>
+                                </li>
+                            }
+                            else if (Session["ConUsuario"] != null && (int)Session["RoleID"] == 1)
+                            {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-user"></i> @Session["Nombre"]
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,11 +64,15 @@
                             }
                             else
                             {
-                                <li class="nav-item">
-                                    @Html.ActionLink("Login", "Login", "Acceso", null, new { @class = "nav-link" })
+                                <li class="">
+                                    @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "" })
+                                </li>
+                                <li class="">
+                                    @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "" })
                                 </li>
                             }
                         </ul>
+
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -70,9 +86,10 @@
     <footer>
         <div class="container">
             <div class="col-lg-8">
-                <p>Copyright © 2023 Dominium. All rights reserved.
-                <br/>
-                <a href="@Url.Action("Menu","Admin")">Admin Dashboard</a>
+                <p>
+                    Copyright © 2023 Dominium. All rights reserved.
+                    <br />
+                    <a href="@Url.Action("Menu","Admin")">Admin Dashboard</a>
             </div>
         </div>
     </footer>
@@ -82,6 +99,9 @@
     <script src="/template/assets/js/owl-carousel.js"></script>
     <script src="/template/assets/js/counter.js"></script>
     <script src="/template/assets/js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
 

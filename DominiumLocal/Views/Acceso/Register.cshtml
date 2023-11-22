@@ -30,15 +30,21 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Formulario de Registro</h3>
+                            @if (ViewBag.MensajeUsuario != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.MensajeUsuario
+                                </div>
+                            }
                             <!-- formulario de registro -->
-                            @using (Html.BeginForm("CRegister", "Acceso", FormMethod.Post))
+                            @using (Html.BeginForm("CRegister", "Acceso", FormMethod.Post, new { onsubmit = "return validarContraseñas();" }))
                             {
                                 <div class="row">
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Nombre</label>
-                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-lg", placeholder = "Nombre" })
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-control-lg", placeholder = "Nombre", required = "required" })
                                             @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -46,7 +52,7 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Apellido</label>
-                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-lg", placeholder = "Apellido" })
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-control-lg", placeholder = "Apellido", required = "required" })
                                             @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -57,7 +63,7 @@
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Email</label>
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", placeholder = "Email" })
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", placeholder = "Email", required = "required" })
                                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -65,7 +71,7 @@
                                         <!-- Telefono -->
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Telefono</label>
-                                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control form-control-lg", placeholder = "0000 - 0000" })
+                                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control form-control-lg", placeholder = "0000 - 0000", required = "required" })
                                             @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -76,7 +82,7 @@
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Contraseña</label>
-                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Contraseña" })
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Contraseña", required = "required" })
                                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -84,7 +90,7 @@
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label for="firstName" class="form-label">Confirmar Contraseña</label>
-                                            @Html.PasswordFor(m => m.Cpassword, new { @class = "form-control form-control-lg", placeholder = "Confirmar Contraseña" })
+                                            @Html.PasswordFor(m => m.Cpassword, new { @class = "form-control form-control-lg", placeholder = "Confirmar Contraseña", required = "required" })
                                             @Html.ValidationMessageFor(m => m.Cpassword, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -113,5 +119,24 @@
             </div>
         </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function validarContraseñas() {
+            var password = document.getElementById('Password').value;
+            var cpassword = document.getElementById('Cpassword').value;
+
+            if (password !== cpassword) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Las contraseñas no coinciden',
+                });
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
 </body>
 </html>

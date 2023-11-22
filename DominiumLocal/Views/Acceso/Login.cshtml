@@ -12,6 +12,12 @@
                          class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    @if (ViewBag.MensajeUsuario != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.MensajeUsuario
+                        </div>
+                    }
                     <!-- conecta con el controlador de acceso -->
                     @using (Html.BeginForm("Login", "Acceso", FormMethod.Post, new { @class = "pt-3" }))
                     {
@@ -34,7 +40,7 @@
                             <!-- Boton envia datos de formulario para inicio de sesion -->
                             <button type="submit" class="btn btn-primary btn-lg"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                      Login
+                                Login
                             </button>
                             <!-- Enlace de registro -->
                             <p class="small fw-bold mt-2 pt-1 mb-0">
