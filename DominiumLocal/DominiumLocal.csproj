@@ -3754,7 +3754,6 @@
     <Content Include="dashboard\scss\base\_custom-grid.scss" />
     <Content Include="dashboard\scss\base\_fonts.scss" />
     <Content Include="dashboard\scss\base\_helper.scss" />
-    <Content Include="dashboard\scss\base\_reset.scss" />
     <Content Include="dashboard\scss\components\app\_app-calender-date.scss" />
     <Content Include="dashboard\scss\components\app\_app-calender-event.scss" />
     <Content Include="dashboard\scss\components\app\_apps.scss" />
@@ -4162,6 +4161,7 @@
     <Content Include="template\assets\css\register.css" />
     <Content Include="template\assets\css\styleshome.css" />
     <Content Include="template\assets\css\templatemo-villa-agency.css" />
+    <Content Include="template\assets\css\Usuario-Dashboard.css" />
     <Content Include="template\assets\images\banner-01.jpg" />
     <Content Include="template\assets\images\banner-02.jpg" />
     <Content Include="template\assets\images\banner-03.jpg" />

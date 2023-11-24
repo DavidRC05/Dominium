@@ -15,7 +15,9 @@ namespace DominiumLocal.Controllers
         // GET: Admin
         public ActionResult Propiedades()
         {
-            return View();
+            int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
+            var datos = propiedadModel.ConsultarPropiedades(idUsuarioEnSesion);
+            return View(datos);
         }
         public ActionResult Usuarios()
         {
@@ -61,6 +63,7 @@ namespace DominiumLocal.Controllers
                 return View();
             }
         }
+
 
 
         public ActionResult Menu()

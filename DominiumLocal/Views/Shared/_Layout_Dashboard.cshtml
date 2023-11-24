@@ -7,10 +7,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Focus - Bootstrap Admin Dashboard </title>
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-    <link rel="stylesheet" href="~/dashboard/vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/dashboard/vendor/owl-carousel/css/owl.theme.default.min.css">
-    <link href="~/dashboard/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="~/dashboard//css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/template/assets/css/fontawesome.css">
+    <link href="~/dashboard/css/style.css" rel="stylesheet">
+
+    <style>
+        .user {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: none;
+            background-color: #343957;
+            border-radius: 10px;
+            color: white;
+            padding: 20px;
+            height: 10px;
+        }
+
+            .user:hover {
+                font-size: 14px;
+                font-weight: 700;
+                text-transform: none;
+                background-color: #343957;
+                border-radius: 10px;
+                color: white;
+                padding: 20px;
+                height: 10px;
+            }
+
+        .user-back {
+            background-color: #343957;
+            color: white;
+        }
+    </style>
+
 
 </head>
 
@@ -51,6 +79,16 @@
                             </div>
                         </div>
 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> @Session["Nombre"]
+                            </a>
+                            <div class="dropdown-menu custom-dropdown-menu user-back" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item user-back" href="@Url.Action("Logout", "Acceso")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+                                <a class="dropdown-item user-back" href="@Url.Action("Index", "Home")"><i class="fas fa-tachometer-alt"></i> Salir</a>
+                            </div>
+                        </li>
+
 
                     </div>
                 </nav>
@@ -59,7 +97,6 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Dashboard</li>
                     <li>
                         <a href="@Url.Action("Menu","Admin")" , aria-expanded="false">
                             <i class="icon icon-single-04"></i><span class="nav-text">Menu Principal</span>

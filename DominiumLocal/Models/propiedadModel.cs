@@ -37,5 +37,26 @@ namespace DominiumLocal.Models
                 return resp.Content.ReadFromJsonAsync<string>().Result;
             }
         }
+
+        public List<propiedadEntity> ConsultarPropiedades(int idVendedor)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = $"{urlApi}ConsultarPropiedades/{idVendedor}";
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<List<propiedadEntity>>().Result;
+            }
+        }
+
+
+        public propiedadEntity ConsultaPropiedad(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ConsultaPropiedad?q=" + q;
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<propiedadEntity>().Result;
+            }
+        }
     }
 }

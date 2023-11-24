@@ -72,5 +72,17 @@ namespace DominiumAPI.Controllers
                 return "OK";
             }
         }
+
+        [HttpGet]
+        [Route("ConsultarPropiedades/{idVendedor}")]
+        public List<TPropiedades> ConsultarProductos(int idVendedor)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.TPropiedades.Where(p => p.IDVendedor == idVendedor).ToList();
+            }
+        }
+
     }
 }

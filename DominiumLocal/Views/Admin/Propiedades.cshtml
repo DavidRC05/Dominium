@@ -1,4 +1,4 @@
-﻿
+﻿@model List<DominiumLocal.Entity.propiedadEntity>
 @{
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
     ViewBag.Title = "Propiedades";
@@ -19,36 +19,48 @@
     <div class="container mt-4">
         <h2 class="mb-4">Tus Propiedades</h2>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Ubicación</th>
-                    <th scope="col">Habitaciones</th>
-                    <th scope="col">Baños</th>
-                    <th scope="col">Área</th>
-                    <th scope="col">Pisos</th>
-                    <th scope="col">Estacionamiento</th>
-                    <th scope="col">Vista</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Agrega tus propiedades aquí -->
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Luxury Villa</td>
-                    <td>$2,264,000</td>
-                    <td>18 Old Street Miami, OR 97219</td>
-                    <td>8</td>
-                    <td>8</td>
-                    <td>545m2</td>
-                    <td>3</td>
-                    <td>6 spots</td>
-                    <td><img src="~/template/assets/images/property-01.jpg" class="w-25 h-25" alt="Alternate Text" /></td>
-                </tr>
-            </tbody>
-        </table>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">ID</th>
+                        <th class="text-center" scope="col">Categoría</th>
+                        <th class="text-center" scope="col">Precio</th>
+                        <th class="text-center" scope="col">Ubicación</th>
+                        <th class="text-center" scope="col">Habitaciones</th>
+                        <th class="text-center" scope="col">Baños</th>
+                        <th class="text-center" scope="col">Área</th>
+                        <th class="text-center" scope="col">Pisos</th>
+                        <th class="text-center" scope="col">Estacionamiento</th>
+                        <th class="text-center" scope="col">Vista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th class="text-center">@item.PropiedadID</th>
+                            <td class="text-center">@item.Categoria</td>
+                            <td class="text-center">@item.Precio.ToString("C")</td>
+                            <td class="text-center">@item.UbicacionExacta</td>
+                            <td class="text-center">@item.Habitaciones</td>
+                            <td class="text-center">@item.Banos</td>
+                            <td class="text-center">@item.Area</td>
+                            <td class="text-center">@item.Piso</td>
+                            <td class="text-center">@item.Estacionamiento</td>
+                            <td class="text-center"><img src="@item.Imagen" style="width:150px; height:100px; border-radius:0px" alt="Imagen de la propiedad" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+    <div class="d-lg-flex justify-content-center mt-5">
+        <h3 class="mt-5 text-black">Aun no has subido Propiedades...</h3>
+    </div>
+        }
+
     </div>
 </div>

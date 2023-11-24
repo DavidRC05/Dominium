@@ -1,0 +1,31 @@
+﻿.user {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    background-color: #343957;
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    height:10px;
+}
+
+.user:hover {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    background-color: #343957;
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    height: 10px;
+}
+
+.user-back {
+    background-color: #343957;
+    color: white;
+}
+
+.user-back:hover {
+    background-color: #343957;
+    color: white;
+}
