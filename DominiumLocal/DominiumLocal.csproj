@@ -161,10 +161,12 @@
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entity\propiedadEntity.cs" />
     <Compile Include="Entity\usersEntity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\propiedadModel.cs" />
     <Compile Include="Models\userModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -4225,9 +4227,11 @@
     <Content Include="Views\Admin\Vendedores.cshtml" />
     <Content Include="Views\Shared\_Layout_Dashboard.cshtml" />
     <Content Include="Views\Admin\Menu.cshtml" />
+    <Content Include="Views\Home\Propiedades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

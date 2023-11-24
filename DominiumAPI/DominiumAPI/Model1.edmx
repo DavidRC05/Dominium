@@ -4,7 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DominiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DominiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TPropiedades">
+          <Key>
+            <PropertyRef Name="PropiedadID" />
+          </Key>
+          <Property Name="PropiedadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="50" />
+          <Property Name="Precio" Type="money" />
+          <Property Name="ProvinciaID" Type="int" />
+          <Property Name="UbicacionExacta" Type="nvarchar" MaxLength="250" />
+          <Property Name="Habitaciones" Type="int" />
+          <Property Name="Banos" Type="int" />
+          <Property Name="Area" Type="nvarchar" MaxLength="10" />
+          <Property Name="Piso" Type="int" />
+          <Property Name="Estacionamiento" Type="nvarchar" MaxLength="20" />
+          <Property Name="Imagen" Type="nvarchar" MaxLength="250" />
+          <Property Name="IDVendedor" Type="int" />
+        </EntityType>
+        <EntityType Name="TProvincias">
+          <Key>
+            <PropertyRef Name="ProvinciaID" />
+          </Key>
+          <Property Name="ProvinciaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreProvincia" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TUsers">
           <Key>
             <PropertyRef Name="UserID" />
@@ -17,6 +41,30 @@
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
           <Property Name="Rol" Type="int" />
         </EntityType>
+        <Association Name="FK__TPropieda__IDVen__693CA210">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="0..1" />
+          <End Role="TPropiedades" Type="Self.TPropiedades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TPropiedades">
+              <PropertyRef Name="IDVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TPropieda__Provi__68487DD7">
+          <End Role="TProvincias" Type="Self.TProvincias" Multiplicity="0..1" />
+          <End Role="TPropiedades" Type="Self.TPropiedades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TProvincias">
+              <PropertyRef Name="ProvinciaID" />
+            </Principal>
+            <Dependent Role="TPropiedades">
+              <PropertyRef Name="ProvinciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="RegisterUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
@@ -26,10 +74,19 @@
           <Parameter Name="Rol" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DominiumModelStoreContainer">
+          <EntitySet Name="TPropiedades" EntityType="Self.TPropiedades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TProvincias" EntityType="Self.TProvincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUsers" EntityType="Self.TUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TPropieda__IDVen__693CA210" Association="Self.FK__TPropieda__IDVen__693CA210">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TPropiedades" EntitySet="TPropiedades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TPropieda__Provi__68487DD7" Association="Self.FK__TPropieda__Provi__68487DD7">
+            <End Role="TProvincias" EntitySet="TProvincias" />
+            <End Role="TPropiedades" EntitySet="TPropiedades" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DominiumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -44,6 +101,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Rol" Type="Int32" />
+          <NavigationProperty Name="TPropiedades" Relationship="DominiumModel.FK__TPropieda__IDVen__693CA210" FromRole="TUsers" ToRole="TPropiedades" />
         </EntityType>
         <EntityContainer Name="DominiumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TUsers" EntityType="Self.TUsers" />
@@ -55,7 +113,68 @@
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="Rol" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="TPropiedades" EntityType="DominiumModel.TPropiedades" />
+          <EntitySet Name="TProvincias" EntityType="DominiumModel.TProvincias" />
+          <AssociationSet Name="FK__TPropieda__IDVen__693CA210" Association="DominiumModel.FK__TPropieda__IDVen__693CA210">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="TPropiedades" EntitySet="TPropiedades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TPropieda__Provi__68487DD7" Association="DominiumModel.FK__TPropieda__Provi__68487DD7">
+            <End Role="TProvincias" EntitySet="TProvincias" />
+            <End Role="TPropiedades" EntitySet="TPropiedades" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TPropiedades">
+          <Key>
+            <PropertyRef Name="PropiedadID" />
+          </Key>
+          <Property Name="PropiedadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProvinciaID" Type="Int32" />
+          <Property Name="UbicacionExacta" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Habitaciones" Type="Int32" />
+          <Property Name="Banos" Type="Int32" />
+          <Property Name="Area" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Piso" Type="Int32" />
+          <Property Name="Estacionamiento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IDVendedor" Type="Int32" />
+          <NavigationProperty Name="TUsers" Relationship="DominiumModel.FK__TPropieda__IDVen__693CA210" FromRole="TPropiedades" ToRole="TUsers" />
+          <NavigationProperty Name="TProvincias" Relationship="DominiumModel.FK__TPropieda__Provi__68487DD7" FromRole="TPropiedades" ToRole="TProvincias" />
+        </EntityType>
+        <EntityType Name="TProvincias">
+          <Key>
+            <PropertyRef Name="ProvinciaID" />
+          </Key>
+          <Property Name="ProvinciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreProvincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TPropiedades" Relationship="DominiumModel.FK__TPropieda__Provi__68487DD7" FromRole="TProvincias" ToRole="TPropiedades" />
+        </EntityType>
+        <Association Name="FK__TPropieda__IDVen__693CA210">
+          <End Type="DominiumModel.TUsers" Role="TUsers" Multiplicity="0..1" />
+          <End Type="DominiumModel.TPropiedades" Role="TPropiedades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TPropiedades">
+              <PropertyRef Name="IDVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TPropieda__Provi__68487DD7">
+          <End Type="DominiumModel.TProvincias" Role="TProvincias" Multiplicity="0..1" />
+          <End Type="DominiumModel.TPropiedades" Role="TPropiedades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TProvincias">
+              <PropertyRef Name="ProvinciaID" />
+            </Principal>
+            <Dependent Role="TPropiedades">
+              <PropertyRef Name="ProvinciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -76,6 +195,32 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RegisterUsers" FunctionName="DominiumModel.Store.RegisterUsers" />
+          <EntitySetMapping Name="TPropiedades">
+            <EntityTypeMapping TypeName="DominiumModel.TPropiedades">
+              <MappingFragment StoreEntitySet="TPropiedades">
+                <ScalarProperty Name="IDVendedor" ColumnName="IDVendedor" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Estacionamiento" ColumnName="Estacionamiento" />
+                <ScalarProperty Name="Piso" ColumnName="Piso" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Banos" ColumnName="Banos" />
+                <ScalarProperty Name="Habitaciones" ColumnName="Habitaciones" />
+                <ScalarProperty Name="UbicacionExacta" ColumnName="UbicacionExacta" />
+                <ScalarProperty Name="ProvinciaID" ColumnName="ProvinciaID" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="PropiedadID" ColumnName="PropiedadID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TProvincias">
+            <EntityTypeMapping TypeName="DominiumModel.TProvincias">
+              <MappingFragment StoreEntitySet="TProvincias">
+                <ScalarProperty Name="NombreProvincia" ColumnName="NombreProvincia" />
+                <ScalarProperty Name="ProvinciaID" ColumnName="ProvinciaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,5 +14,10 @@ namespace DominiumLocal.Controllers
         }
 
 
+        public ActionResult Propiedades()
+        {
+            return View();
+        }
+
     }
 }

@@ -41,6 +41,7 @@ namespace DominiumLocal.Controllers
                 Session["Nombre"] = resp.FirstName;
                 Session["ConUsuario"] = resp.Password;
                 Session["Rol"] = resp.Rol;
+                Session["UserID"] = resp.UserID;
                 return RedirectToAction("Index", "Home");
             }
             else

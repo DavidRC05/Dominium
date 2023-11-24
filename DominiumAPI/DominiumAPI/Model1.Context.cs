@@ -20,6 +20,7 @@ namespace DominiumAPI
         public DominiumEntities1()
             : base("name=DominiumEntities1")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,6 +29,8 @@ namespace DominiumAPI
         }
     
         public virtual DbSet<TUsers> TUsers { get; set; }
+        public virtual DbSet<TPropiedades> TPropiedades { get; set; }
+        public virtual DbSet<TProvincias> TProvincias { get; set; }
     
         public virtual int RegisterUsers(string firstName, string lastName, string email, string phoneNumber, string password, Nullable<int> rol)
         {

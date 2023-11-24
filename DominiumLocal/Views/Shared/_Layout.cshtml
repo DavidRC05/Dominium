@@ -36,7 +36,9 @@
                             <li>
                                 @Html.ActionLink("Inicio", "Index", "Home")
                             </li>
-                            <li><a href="#">Propiedades</a></li>
+                            <li>
+                            @Html.ActionLink("Propiedades", "Propiedades", "Home")
+                            </li>
                             <li><a href="#">Contactanos</a></li>
                             @if (Session["ConUsuario"] != null && (int)Session["Rol"] == 2)
                             {

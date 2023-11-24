@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3a6590da90544031ae5ad6564f094833" Name="Diagram1">
         <EntityTypeShape EntityType="DominiumModel.TUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DominiumModel.TPropiedades" Width="1.5" PointX="4.25" PointY="0.875" />
+        <EntityTypeShape EntityType="DominiumModel.TProvincias" Width="1.5" PointX="0.75" PointY="5.75" />
+        <AssociationConnector Association="DominiumModel.FK__TPropieda__IDVen__693CA210" />
+        <AssociationConnector Association="DominiumModel.FK__TPropieda__Provi__68487DD7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

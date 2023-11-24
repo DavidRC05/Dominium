@@ -6,17 +6,10 @@ CREATE TABLE TUsers (
     LastName NVARCHAR(255),
     Email NVARCHAR(255),
     PhoneNumber NVARCHAR(20),
-    Password NVARCHAR(255)
+    Password NVARCHAR(255),
+	Rol INT
 );
 
-ALTER TABLE TUsers
-ADD RoleID INT,
-FOREIGN KEY (RoleID) REFERENCES Roles(RoleID);
-
-CREATE TABLE Roles (
-    RoleID INT PRIMARY KEY,
-    RoleName NVARCHAR(50) NOT NULL
-);
 
 
 CREATE PROCEDURE RegisterUsers
@@ -25,14 +18,14 @@ CREATE PROCEDURE RegisterUsers
     @Email NVARCHAR(255),
     @PhoneNumber NVARCHAR(20),
     @Password NVARCHAR(255),
-	@RoleID INT
+	@Rol INT
 AS
 BEGIN
-    INSERT INTO TUsers (FirstName, LastName, Email, PhoneNumber, Password, RoleID)
-    VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @Password, @RoleID);
+    INSERT INTO TUsers (FirstName, LastName, Email, PhoneNumber, Password, Rol)
+    VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @Password, @Rol);
 END;
 
-drop procedure RegisterUser
 
 select * from TUsers;
-select * from Roles;
+
+

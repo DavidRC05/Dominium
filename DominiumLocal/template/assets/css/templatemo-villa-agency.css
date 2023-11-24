@@ -170,6 +170,17 @@ body {
   transition: all .3s;
 }
 
+.button-search {
+    background-color: #343957;
+    color: white;
+    padding: 10px;
+}
+
+.button-search:hover {
+    background-color: #434a71;
+}
+
+
     .icon-button a i {
         background-color: #343957;
         height: 50px;

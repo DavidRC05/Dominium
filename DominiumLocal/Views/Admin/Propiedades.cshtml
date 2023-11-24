@@ -4,5 +4,51 @@
     ViewBag.Title = "Propiedades";
 }
 
-<h2>Propiedades</h2>
+<style>
+    thead {
+        background-color: #343957;
+        color: #fff;
+    }
 
+    td {
+        color: black
+    }
+</style>
+
+<div class="page-heading header-text">
+    <div class="container mt-4">
+        <h2 class="mb-4">Tus Propiedades</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Habitaciones</th>
+                    <th scope="col">Baños</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Pisos</th>
+                    <th scope="col">Estacionamiento</th>
+                    <th scope="col">Vista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Agrega tus propiedades aquí -->
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Luxury Villa</td>
+                    <td>$2,264,000</td>
+                    <td>18 Old Street Miami, OR 97219</td>
+                    <td>8</td>
+                    <td>8</td>
+                    <td>545m2</td>
+                    <td>3</td>
+                    <td>6 spots</td>
+                    <td><img src="~/template/assets/images/property-01.jpg" class="w-25 h-25" alt="Alternate Text" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

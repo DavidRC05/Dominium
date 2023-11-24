@@ -36,14 +36,22 @@ namespace DominiumAPI.Controllers
             {
                 using (var context = new DominiumEntities1())
                 {
-                    return (from x in context.TUsers
-                                 where x.Email == entidad.Email
-                                    && x.Password == entidad.Password
-                                 select x).FirstOrDefault();
+                    var propiedad = context.TPropiedades;
+                    var user = context.TUsers
+                        .FirstOrDefault(x => x.Email == entidad.Email && x.Password == entidad.Password);
+
+                    if (user != null)
+                    {
+                        var propiedades = user.TPropiedades.ToList(); // Acceso a las propiedades después de cargarlas anticipadamente
+                    }
+
+                    return user;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Registra la excepción en un sistema de registro
+                Console.WriteLine($"Error en la autenticación: {ex.Message}");
                 return null;
             }
         }
