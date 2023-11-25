@@ -10,9 +10,8 @@
 namespace DominiumAPI
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TPropiedades
+    public partial class ObtenerPropiedadConVendedor_Result
     {
         public int PropiedadID { get; set; }
         public string Categoria { get; set; }
@@ -25,9 +24,6 @@ namespace DominiumAPI
         public Nullable<int> Piso { get; set; }
         public string Estacionamiento { get; set; }
         public string Imagen { get; set; }
-        public Nullable<int> IDVendedor { get; set; }
-    
-        public virtual TUsers TUsers { get; set; }
-        public virtual TProvincias TProvincias { get; set; }
+        public string VendedorNombre { get; set; }
     }
 }

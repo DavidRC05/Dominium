@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DominiumLocal.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,17 @@ namespace DominiumLocal.Controllers
 {
     public class HomeController : Controller
     {
+        propiedadModel propiedadModel = new propiedadModel();
         public ActionResult Index()
-        {
+        { 
             return View();
         }
 
 
         public ActionResult Propiedades()
         {
-            return View();
+            var datos = propiedadModel.VerPropiedades();
+            return View(datos);
         }
 
     }

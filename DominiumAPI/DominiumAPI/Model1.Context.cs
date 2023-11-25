@@ -20,7 +20,6 @@ namespace DominiumAPI
         public DominiumEntities1()
             : base("name=DominiumEntities1")
         {
-            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -59,6 +58,15 @@ namespace DominiumAPI
                 new ObjectParameter("Rol", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUsers", firstNameParameter, lastNameParameter, emailParameter, phoneNumberParameter, passwordParameter, rolParameter);
+        }
+    
+        public virtual ObjectResult<ObtenerPropiedadConVendedor_Result> ObtenerPropiedadConVendedor(Nullable<int> propiedadID)
+        {
+            var propiedadIDParameter = propiedadID.HasValue ?
+                new ObjectParameter("PropiedadID", propiedadID) :
+                new ObjectParameter("PropiedadID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ObtenerPropiedadConVendedor_Result>("ObtenerPropiedadConVendedor", propiedadIDParameter);
         }
     }
 }

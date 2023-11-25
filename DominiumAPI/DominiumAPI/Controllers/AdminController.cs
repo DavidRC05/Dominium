@@ -84,5 +84,18 @@ namespace DominiumAPI.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("VerPropiedades")]
+        public List<TPropiedades> VerPropiedades()
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.TPropiedades.ToList();
+            }
+
+        }
+
     }
 }

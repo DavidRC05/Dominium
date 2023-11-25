@@ -13,8 +13,14 @@
         <div class="form-row">
             <div class="col-md-6 mb-4">
                 <div class="form-group">
-                    <label class="form-label">Categoria</label>
-                    @Html.TextBoxFor(m => m.Categoria, new { @class = "form-control form-control-lg", placeholder = "Ej. Luxury Villa", required = "required" })
+                    <label class="form-label">Categoría</label>
+                    @Html.DropDownListFor(m => m.Categoria, new SelectList(new[]
+                    {
+                         new SelectListItem { Value = "", Text = "Seleccionar categoría", Disabled = true, Selected = true },
+                         new SelectListItem { Value = "Apartamento", Text = "Apartamento" },
+                         new SelectListItem { Value = "Casa", Text = "Casa" },
+                         new SelectListItem { Value = "Quinta", Text = "Quinta" },
+                    }, "Value", "Text"), new { @class = "form-control form-control-lg", required = "required" })
                     @Html.ValidationMessageFor(m => m.Categoria, "", new { @class = "text-danger" })
                 </div>
             </div>

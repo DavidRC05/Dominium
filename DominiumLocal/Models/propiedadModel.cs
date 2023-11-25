@@ -48,6 +48,16 @@ namespace DominiumLocal.Models
             }
         }
 
+        public List<propiedadEntity> VerPropiedades()
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "VerPropiedades";
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<List<propiedadEntity>>().Result;
+            }
+        }
+
 
         public propiedadEntity ConsultaPropiedad(long q)
         {

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<DominiumLocal.Entity.propiedadEntity>
+@{ 
     ViewBag.Title = "Propiedades";
 }
 
@@ -13,35 +14,34 @@
             </div>
         </div>
     </div>
-
     <div class="section properties">
         <div class="container">
             <ul class="properties-filter nav nav-pills justify-content-center mb-5">
                 <li class="nav-item">
-                    <a class="nav-link is_active" href="#!" data-filter="*">Show All</a>
+                    <a class="nav-link is_active" href="#!" data-filter="*">Mostrar Todos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".adv">Apartment</a>
+                    <a class="nav-link" href="#!" data-filter=".adv">Apartamento</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".str">Villa House</a>
+                    <a class="nav-link" href="#!" data-filter=".str">Casa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".rac">Penthouse</a>
+                    <a class="nav-link" href="#!" data-filter=".rac">Quinta</a>
                 </li>
             </ul>
 
             <div class="search-bar row justify-content-center">
                 <div class="col-md-6 col-lg-4 mb-3">
                     <select class="form-control" id="provincia-filter">
-                        <option value="*">All Provinces</option>
-                        <option value=".san-jose">San Jose</option>
-                        <option value=".limon">Limón</option>
-                        <option value=".puntarenas">Puntarenas</option>
-                        <option value=".heredia">Heredia</option>
-                        <option value=".alajuela">Alajuela</option>
-                        <option value=".guanacaste">Guanacaste</option>
-                        <option value=".cartago">Cartago</option>
+                        <option value="*">Todas las Provincias</option>
+                        <option value=".provincia-1">San José</option>
+                        <option value=".provincia-2">Limón</option>
+                        <option value=".provincia-3">Puntarenas</option>
+                        <option value=".provincia-4">Heredia</option>
+                        <option value=".provincia-5">Alajuela</option>
+                        <option value=".provincia-6">Guanacaste</option>
+                        <option value=".provincia-7">Cartago</option>
                     </select>
                 </div>
 
@@ -50,53 +50,56 @@
                 </div>
             </div>
 
-            <div class="row properties-box">
-                <div class="col-lg-4 col-md-6 align-self-center mb-30 properties-items col-md-6 adv">
-                    <div class="item">
-                        <a href="property-details.html"><img src="~/template/assets/images/property-01.jpg" alt=""></a>
-                        <span class="category">Luxury Villa</span>
-                        <h6>$2.264.000</h6>
-                        <h4><a href="property-details.html">18 Old Street Miami, OR 97219</a></h4>
-                        <ul>
-                            <li>Bedrooms: <span>8</span></li>
-                            <li>Bathrooms: <span>8</span></li>
-                            <li>Area: <span>545m2</span></li>
-                            <li>Floor: <span>3</span></li>
-                            <li>Parking: <span>6 spots</span></li>
-                        </ul>
-                        <div class="main-button">
-                            <a href="property-details.html">Schedule a visit</a>
+            @if (Model.Count() > 0)
+            {
+                <div class="row properties-box">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-30 item propiedad provincia-@item.ProvinciaID">
+                            <div class="item">
+                                <a href="property-details.html"><img src="@item.Imagen" width="300" height="200" alt=""></a>
+                                <span class="category">@item.Categoria</span>
+                                <h6>@item.Precio.ToString("C")</h6>
+                                <h4><a href="property-details.html">@item.UbicacionExacta</a></h4>
+                                <div class="d-flex justify-content-center">
+                                    <ul>
+                                        <li>Recámaras: <span>@item.Habitaciones</span></li>
+                                        <li>Baños: <span>@item.Banos</span></li>
+                                        <li>Área: <span>@item.Area m2</span></li>
+                                        <li>Piso: <span>@item.Piso</span></li>
+                                        <li>Estacionamiento: <span>@item.Estacionamiento cupos</span></li>
+                                    </ul>
+                                </div>
+                                <div class="main-button">
+                                    <a href="property-details.html">Agendar Visita</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
-                <!-- Agrega más propiedades según sea necesario -->
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="pagination">
-                        <li><a href="#">1</a></li>
-                        <li><a class="is_active" href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">&gt;&gt;</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function filterProperties() {
-            var provinciaFilter = $('#provincia-filter').val();
-
-            $('.property-list .item').hide();
-
-            if (provinciaFilter === '*') {
-                $('.property-list .item').show();
-            } else {
-                $('.property-list .item' + provinciaFilter).show();
             }
-        }
-    </script>
+            else
+            {
+                <div class="d-flex justify-content-center">
+                    <h3 class="text-black">No hay propiedades en este momento...</h3>
+                </div>
+            }
+        </div>
+        </div>
+
+
+        <script>
+            function filterProperties() {
+                var provinciaFilter = $('#provincia-filter').val();
+
+                if (provinciaFilter) {
+                    $('.properties-box ' + provinciaFilter).show();
+                    $('.properties-box .provincia-' ).hide();
+                } else if (provinciaFilter === "*") {
+                    $('.properties-box ').show();
+                }
+            }
+        </script>
+
 </body>
 

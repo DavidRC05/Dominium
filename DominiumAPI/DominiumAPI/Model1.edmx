@@ -65,6 +65,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ObtenerPropiedadConVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PropiedadID" Type="int" Mode="In" />
+        </Function>
         <Function Name="RegisterUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
@@ -123,6 +126,9 @@
             <End Role="TProvincias" EntitySet="TProvincias" />
             <End Role="TPropiedades" EntitySet="TPropiedades" />
           </AssociationSet>
+          <FunctionImport Name="ObtenerPropiedadConVendedor" ReturnType="Collection(DominiumModel.ObtenerPropiedadConVendedor_Result)">
+            <Parameter Name="PropiedadID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="TPropiedades">
           <Key>
@@ -175,6 +181,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="ObtenerPropiedadConVendedor_Result">
+          <Property Type="Int32" Name="PropiedadID" Nullable="false" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="ProvinciaID" Nullable="true" />
+          <Property Type="String" Name="UbicacionExacta" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Habitaciones" Nullable="true" />
+          <Property Type="Int32" Name="Banos" Nullable="true" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Piso" Nullable="true" />
+          <Property Type="String" Name="Estacionamiento" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Imagen" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="VendedorNombre" Nullable="true" MaxLength="511" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -221,6 +241,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerPropiedadConVendedor" FunctionName="DominiumModel.Store.ObtenerPropiedadConVendedor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DominiumModel.ObtenerPropiedadConVendedor_Result">
+                <ScalarProperty Name="PropiedadID" ColumnName="PropiedadID" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="ProvinciaID" ColumnName="ProvinciaID" />
+                <ScalarProperty Name="UbicacionExacta" ColumnName="UbicacionExacta" />
+                <ScalarProperty Name="Habitaciones" ColumnName="Habitaciones" />
+                <ScalarProperty Name="Banos" ColumnName="Banos" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Piso" ColumnName="Piso" />
+                <ScalarProperty Name="Estacionamiento" ColumnName="Estacionamiento" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="VendedorNombre" ColumnName="VendedorNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
