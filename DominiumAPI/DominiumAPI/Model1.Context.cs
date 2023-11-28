@@ -20,6 +20,7 @@ namespace DominiumAPI
         public DominiumEntities1()
             : base("name=DominiumEntities1")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

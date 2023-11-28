@@ -1,7 +1,87 @@
-﻿@model List<DominiumLocal.Entity.propiedadEntity>
-@{ 
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<DominiumLocal.Entity.propiedadEntity>
+
+@{
     ViewBag.Title = "Propiedades";
+
+    // Función para obtener el nombre de la provincia basado en el ID
+    string GetProvinciaName(int provinciaID)
+    {
+        // Implementa la lógica para obtener el nombre de la provincia basado en el ID
+        switch (provinciaID)
+        {
+            case 1: return "San José";
+            case 2: return "Limón";
+            case 3: return "Puntarenas";
+            case 4: return "Heredia";
+            case 5: return "Alajuela";
+            case 6: return "Guanacaste";
+            case 7: return "Cartago";
+            default: return provinciaID.ToString(); // Devuelve el ID como cadena si no hay coincidencia.
+        }
+    }
+
+    // Función para obtener el nombre de la categoría
+    string GetCategoriaName(string categoria)
+    {
+        // Puedes personalizar esto según tus necesidades
+        switch (categoria.ToLower())
+        {
+            case "adv": return "Apartamento";
+            case "str": return "Casa";
+            case "rac": return "Quinta";
+            default: return categoria;
+        }
+    }
+
+    // Obtén el valor del filtro de provincia de la solicitud
+    var provinciaFilter = Request["provinciaFilter"];
+    var categoriaFilter = Request["categoriaFilter"];
+
+    var province = "";
 }
+<style>
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .pagination li {
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #343957;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
+
+        .pagination .active a {
+            background-color: #343957;
+            color: #fff;
+        }
+
+    .espacio {
+        height: 2100px;
+    }
+
+</style>
+
 
 <body>
     <div class="page-heading header-text">
@@ -14,34 +94,19 @@
             </div>
         </div>
     </div>
+
     <div class="section properties">
         <div class="container">
-            <ul class="properties-filter nav nav-pills justify-content-center mb-5">
-                <li class="nav-item">
-                    <a class="nav-link is_active" href="#!" data-filter="*">Mostrar Todos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".adv">Apartamento</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".str">Casa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!" data-filter=".rac">Quinta</a>
-                </li>
-            </ul>
 
+            <!-- Barra de búsqueda -->
             <div class="search-bar row justify-content-center">
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <select class="form-control" id="provincia-filter">
+                    <select class="form-control" id="provincia-filter" onchange="filterProperties()">
                         <option value="*">Todas las Provincias</option>
-                        <option value=".provincia-1">San José</option>
-                        <option value=".provincia-2">Limón</option>
-                        <option value=".provincia-3">Puntarenas</option>
-                        <option value=".provincia-4">Heredia</option>
-                        <option value=".provincia-5">Alajuela</option>
-                        <option value=".provincia-6">Guanacaste</option>
-                        <option value=".provincia-7">Cartago</option>
+                        @foreach (var provinciaID in Model.Select(p => p.ProvinciaID).Distinct())
+                        {
+                            <option value="@provinciaID">@GetProvinciaName(provinciaID)</option>
+                        }
                     </select>
                 </div>
 
@@ -50,17 +115,47 @@
                 </div>
             </div>
 
-            @if (Model.Count() > 0)
+            <!-- Propiedades -->
+            @if (Model.Count > 0)
             {
                 <div class="row properties-box">
                     @foreach (var item in Model)
                     {
-                        <div class="col-lg-4 col-md-6 mb-30 item propiedad provincia-@item.ProvinciaID">
+                        if (@item.ProvinciaID == 1)
+                        {
+                            province = "San Jose";
+                        }
+                        else if (@item.ProvinciaID == 2)
+                        {
+                            province = "Limón";
+                        }
+                        else if (@item.ProvinciaID == 3)
+                        {
+                            province = "Puntarenas";
+                        }
+                        else if (@item.ProvinciaID == 4)
+                        {
+                            province = "Heredia";
+                        }
+                        else if (@item.ProvinciaID == 5)
+                        {
+                            province = "Alajuela";
+                        }
+                        else if (@item.ProvinciaID == 6)
+                        {
+                            province = "Guanacaste";
+                        }
+                        else if (@item.ProvinciaID == 7)
+                        {
+                            province = "Cartago";
+                        }
+
+                        <div class="col-lg-4 col-md-6 mb-30 item propiedad provincia-@item.ProvinciaID" style="display: @(provinciaFilter != null && provinciaFilter != "*" && provinciaFilter != item.ProvinciaID.ToString() ? "none" : "block")">
                             <div class="item">
                                 <a href="property-details.html"><img src="@item.Imagen" width="300" height="200" alt=""></a>
-                                <span class="category">@item.Categoria</span>
+                                <span class="category categoria-@item.Categoria">@item.Categoria</span>
                                 <h6>@item.Precio.ToString("C")</h6>
-                                <h4><a href="property-details.html">@item.UbicacionExacta</a></h4>
+                                <h4><a href="property-details.html">@province, @item.UbicacionExacta</a></h4>
                                 <div class="d-flex justify-content-center">
                                     <ul>
                                         <li>Recámaras: <span>@item.Habitaciones</span></li>
@@ -77,6 +172,8 @@
                         </div>
                     }
                 </div>
+
+
             }
             else
             {
@@ -85,21 +182,50 @@
                 </div>
             }
         </div>
-        </div>
+    </div>
+
+    <div class="espacio"></div>
+    <!-- Mostrar la paginación -->
+    <div class="col-lg-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                @Html.PagedListPager(Model, pagina => Url.Action("Propiedades", new { pagina, pageSize = ViewBag.PageSize, provinciaFilter, categoriaFilter }))
+            </ul>
+        </nav>
+    </div>
 
 
-        <script>
-            function filterProperties() {
-                var provinciaFilter = $('#provincia-filter').val();
 
-                if (provinciaFilter) {
-                    $('.properties-box ' + provinciaFilter).show();
-                    $('.properties-box .provincia-' ).hide();
-                } else if (provinciaFilter === "*") {
-                    $('.properties-box ').show();
-                }
+
+
+    <script>
+        function filterByCategoria(categoria) {
+            // Obtén el valor del filtro de provincia
+            var categoriaFilter = $('#categoria-filter').val();
+
+            // Redirige solo si se hace clic en el botón de buscar y el filtro no es nulo ni vacío
+            if (categoriaFilter && !categoriaFilter.includes('*')) {
+                // Redirige a la acción Propiedades con el filtro seleccionado
+                window.location.href = '@Url.Action("Propiedades", "Home")' + '?categoriaFilter=' + categoriaFilter;
             }
-        </script>
+        }
 
+        function ShouldDisplay(propertyProvincia, filterProvincia) {
+            // Lógica para determinar si la propiedad debe mostrarse según el filtro de provincia
+            return filterProvincia == null || filterProvincia === "*" || filterProvincia === propertyProvincia;
+        }
+
+        function filterProperties() {
+            // Obtén el valor del filtro de provincia
+            var provinciaFilter = $('#provincia-filter').val();
+
+            // Redirige solo si se hace clic en el botón de buscar y el filtro no es nulo ni vacío
+            if (provinciaFilter && !provinciaFilter.includes('*')) {
+                // Redirige a la acción Propiedades con el filtro seleccionado
+                window.location.href = '@Url.Action("Propiedades", "Home")' + '?provinciaFilter=' + provinciaFilter;
+            } else {
+                window.location.href = '@Url.Action("Propiedades", "Home")' + '?provinciaFilter=*';
+            }
+        }
+    </script>
 </body>
-
