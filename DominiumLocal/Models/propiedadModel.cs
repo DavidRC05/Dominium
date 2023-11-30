@@ -58,6 +58,23 @@ namespace DominiumLocal.Models
             }
         }
 
+        public propiedadEntity ObtenerPropiedadPorId(int propiedadId)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + $"ObtenerPropiedadPorId/{propiedadId}";
+                var response = client.GetAsync(url).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.Content.ReadFromJsonAsync<propiedadEntity>().Result;
+                }
+
+                // Manejar el error de alguna manera apropiada
+                return null;
+            }
+        }
+
 
         public propiedadEntity ConsultaPropiedad(long q)
         {

@@ -2,9 +2,11 @@
 using DominiumAPI.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace DominiumAPI.Controllers
@@ -96,6 +98,29 @@ namespace DominiumAPI.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("ObtenerPropiedadPorId/{propiedadId}")]
+        public TPropiedades ObtenerPropiedadPorId(int propiedadId)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.TPropiedades.FirstOrDefault(p => p.PropiedadID == propiedadId);
+            }
+        }
+
+        [HttpGet]
+        [Route("ObtenerUsuarioPorId/{userId}")]
+        public async Task<TUsers> ObtenerUsuarioPorIdAsync(int userId)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return await context.TUsers.FirstOrDefaultAsync(u => u.UserID == userId);
+            }
+        }
+
 
     }
 }
