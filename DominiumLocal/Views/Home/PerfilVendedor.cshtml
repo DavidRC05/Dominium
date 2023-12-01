@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "PerfilVendedor";
+}
+
+<div class="row py-5 px-4">
+    <div class="col-md-5 mx-auto">
+        <!-- Profile widget -->
+        <div class="">
+            <div class="px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3">
+                        @if (string.IsNullOrEmpty(ViewBag.Vendedor.ProfilePicture))
+                        {
+                            <!-- Si la propiedad ProfilePicture del ViewBag está vacía, muestra la imagen predeterminada -->
+                            <img src="~/Images/defaultProfile.png" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        }
+                        else
+                        {
+                            <!-- Si hay una imagen en la propiedad ProfilePicture del ViewBag, muéstrala -->
+                            <img src="@ViewBag.Vendedor.ProfilePicture" alt="..." style="width: 150px; height:150px; border-radius:10px;" class="rounded mb-2 img-thumbnail">
+                        }
+                    </div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">@ViewBag.Vendedor.FirstName @ViewBag.Vendedor.LastName</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3">
+                <h5 class="mb-0">Descripción</h5>
+                <div class="p-4 rounded shadow-sm bg-light">
+                    @if (string.IsNullOrEmpty(ViewBag.Vendedor.Description))
+                    {
+                        <!-- Si la propiedad Descripcion del ViewBag está vacía, muestra un texto predeterminado -->
+                        <p class="font-italic mb-0">Amante del vender!</p>
+                    }
+                    else
+                    {
+                        <!-- Si hay una descripción en la propiedad Descripcion del ViewBag, muéstrala -->
+                        <p class="font-italic mb-0">@ViewBag.Vendedor.Description</p>
+                    }
+                </div>
+            </div>
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Propiedades Subidas</h5>
+                    <a href="#" class="btn btn-link text-muted">Ver Todas</a>
+                </div>
+                <div class="row">
+                    @foreach (var item in ViewBag.PropiedadesSubidas)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-5 item propiedad ">
+                            <div class="item">
+                                <a href="@Url.Action("DetallesPropiedadId", "Home", new { propiedadId = item.PropiedadID })"><img src="@item.Imagen" width="300" height="200" alt=""></a>
+                                <span class="category categoria-@item.Categoria">@item.Categoria</span>
+                                <h5>@item.Precio.ToString("C")</h5>
+                                <h6>@item.UbicacionExacta</h6>
+                                <div class="main-button d-flex justify-content-center mt-1">
+                                    <a href="@Url.Action("DetallesPropiedadId", "Home", new { propiedadId = item.PropiedadID })">Ver Detalles</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!--Section: Contact v.2-->
+        <section class="mb-4">
+
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Contacto</h2>
+            <!--Section description-->
+            <p class="text-center w-responsive mx-auto mb-5">
+                ¿Tienes interes en alguna propiedad?<br> 
+                Ponte en contacto con el vendedor para agendar una visita.
+            </p>
+
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="name" name="name" class="form-control">
+                                    <label for="name" class="">Tu nombre</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="email" name="email" class="form-control">
+                                    <label for="email" class="">Tu email</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="subject" name="subject" class="form-control">
+                                    <label for="subject" class="">Asunto</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-12">
+
+                                <div class="md-form">
+                                    <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                    <label for="message">Mensaje</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Grid row-->
+
+                    </form>
+
+                    <div class="text-center text-md-left">
+                        <a class="btn btn-dark" onclick="document.getElementById('contact-form').submit();">Enviar</a>
+                    </div>
+                    <div class="status"></div>
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                            <p>Costa Rica &#x1F1E8;&#x1F1F7;</p>
+                        </li>
+
+                        <li>
+                            <i class="fas fa-phone mt-4 fa-2x"></i>
+                            <p>+506 @ViewBag.Vendedor.PhoneNumber</p>
+                        </li>
+
+                        <li>
+                            <i class="fas fa-envelope mt-4 fa-2x"></i>
+                            <p>@ViewBag.Vendedor.Email</p>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+            </div>
+
+        </section>
+        <!--Section: Contact v.2-->
+    </div>
+
+
+</div>

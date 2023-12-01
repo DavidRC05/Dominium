@@ -47,10 +47,12 @@
                                                 <li>Numero Telefonico <span>+506 @ViewBag.Vendedor.PhoneNumber</span></li>
                                                 <li>Correo Electronico <span>@ViewBag.Vendedor.Email</span></li>
                                                 <p style="color: #aaa" class="mb-1">Conectar</p>
-                                                    <div class="d-flex justify-content-center  gap-1">
-                                                        <button class="btn btn-dark mr-2" style="padding-left: 10px; padding-right: 10px; font-size: 11px;">Enviar Correo <i class="fas fa-envelope"></i></button>
-                                                        <button class="btn btn-secondary" style="padding-left: 10px; padding-right: 10px; font-size: 11px;">Enviar mensaje <i class="fas fa-comment"></i></button>
-                                                    </div>
+                                                <div class="d-flex justify-content-center  gap-1">
+                                                    <a href="@Url.Action("PerfilV", "Home", new { vendedorID = ViewBag.Vendedor.UserID, propiedadID = ViewBag.Propiedad.PropiedadID })" class="btn btn-dark mr-2" style="padding-left: 10px; padding-right: 10px; font-size: 11px;">Enviar Correo <i class="fas fa-envelope"></i></a>
+
+                                                    <a href="https://wa.me/@ViewBag.Vendedor.PhoneNumber" class="btn btn-secondary" style="padding-left: 10px; padding-right: 10px; font-size: 11px;">Enviar Mensaje<i class="fas fa-comment"></i></a>
+
+                                                </div>
                                         </div>
                                     </div>
                                     </div>

@@ -90,13 +90,39 @@ namespace DominiumLocal.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult VerDetalles(int propiedadId)
+        [HttpGet]
+        public ActionResult PerfilVendedor()
         {
-            // Lógica para agendar la cita (puedes agregar lógica adicional según tus necesidades)
+            return View();
+        }
 
-            // Redirige a la acción DetallesPropiedad con el ID de la propiedad
-            return RedirectToAction("DetallesPropiedad", new { propiedadId });
+        [HttpGet]
+        public async Task<ActionResult> PerfilV(int vendedorID, int propiedadID)
+        {
+            var propiedad = propiedadModel.ObtenerPropiedadPorId(propiedadID);
+            var vendedorTask = userModel.ObtenerUsuarioPorId(vendedorID);
+            var propiedadesV = propiedadModel.ConsultarPropiedades(vendedorID);
+            var vendedor = await vendedorTask;
+
+            if (vendedor != null)
+            {
+                ViewBag.Vendedor = vendedor;
+                ViewBag.PropiedadesSubidas = propiedadesV.Take(3);
+
+                if (propiedad != null)
+                {
+                    ViewBag.Propiedad = new List<propiedadEntity> { propiedad }; // Convierte el objeto en una lista
+                    return View("PerfilVendedor");
+                }
+                else
+                {
+                    return RedirectToAction("Propiedades", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Propiedades", "Home");
+            }
         }
 
 
