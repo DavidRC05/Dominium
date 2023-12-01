@@ -75,6 +75,24 @@ namespace DominiumAPI.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("ActualizarRutaImagenPerfil")]
+        public string ActualizarRutaImagenPerfil(TUsers tusers)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var datos = context.TUsers.FirstOrDefault(x => x.UserID == tusers.UserID);
+
+                if (datos != null)
+                {
+                    datos.ProfilePicture = tusers.ProfilePicture;
+                    context.SaveChanges();
+                }
+
+                return "OK";
+            }
+        }
+
         [HttpGet]
         [Route("ConsultarPropiedades/{idVendedor}")]
         public List<TPropiedades> ConsultarProductos(int idVendedor)
@@ -118,6 +136,36 @@ namespace DominiumAPI.Controllers
             {
                 context.Configuration.LazyLoadingEnabled = false;
                 return await context.TUsers.FirstOrDefaultAsync(u => u.UserID == userId);
+            }
+        }
+
+        [HttpGet]
+        [Route("ConsultaUsuario")]
+        public TUsers ConsultaUsuario(long q)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return (from x in context.TUsers
+                        where x.UserID == q
+                        select x).FirstOrDefault();
+            }
+        }
+
+        [HttpPut]
+        [Route("ActualizarPerfil")]
+        public string ActualizarPerfil(TUsers tUsers)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var datos = context.TUsers.Where(x => x.UserID == tUsers.UserID).FirstOrDefault();
+                datos.FirstName = tUsers.FirstName;
+                datos.LastName = tUsers.LastName;
+                datos.Email = tUsers.Email;
+                datos.PhoneNumber = tUsers.PhoneNumber;
+                datos.Description = tUsers.Description;
+                context.SaveChanges();
+                return "OK";
             }
         }
 

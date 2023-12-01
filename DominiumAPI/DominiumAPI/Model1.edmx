@@ -40,6 +40,8 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" />
           <Property Name="Rol" Type="int" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK__TPropieda__IDVen__693CA210">
           <End Role="TUsers" Type="Self.TUsers" Multiplicity="0..1" />
@@ -105,6 +107,8 @@
           <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Rol" Type="Int32" />
           <NavigationProperty Name="TPropiedades" Relationship="DominiumModel.FK__TPropieda__IDVen__693CA210" FromRole="TUsers" ToRole="TPropiedades" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DominiumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TUsers" EntityType="Self.TUsers" />
@@ -127,7 +131,7 @@
             <End Role="TPropiedades" EntitySet="TPropiedades" />
           </AssociationSet>
           <FunctionImport Name="ObtenerPropiedadConVendedor" ReturnType="Collection(DominiumModel.ObtenerPropiedadConVendedor_Result)">
-            <Parameter Name="PropiedadID" Mode="In" Type="Int32" />
+          <Parameter Name="PropiedadID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="TPropiedades">
@@ -204,6 +208,8 @@
           <EntitySetMapping Name="TUsers">
             <EntityTypeMapping TypeName="DominiumModel.TUsers">
               <MappingFragment StoreEntitySet="TUsers">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

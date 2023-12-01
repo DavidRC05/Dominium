@@ -39,6 +39,10 @@ namespace DominiumLocal.Controllers
             if (resp != null)
             {
                 Session["Nombre"] = resp.FirstName;
+                Session["Apellido"] = resp.LastName;
+                Session["Email"] = resp.Email;
+                Session["Imagen"] = resp.ProfilePicture;
+                Session["Descripcion"] = resp.Description;
                 Session["ConUsuario"] = resp.Password;
                 Session["Rol"] = resp.Rol;
                 Session["UserID"] = resp.UserID;

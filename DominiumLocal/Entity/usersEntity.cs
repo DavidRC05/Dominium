@@ -16,5 +16,7 @@ namespace DominiumLocal.Entity
         public string Password { get; set; }
         public string Cpassword { get; set; }
         public int Rol {  get; set; }
+        public string ProfilePicture { get; set; }
+        public string Description { get; set; }
     }
 }

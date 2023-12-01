@@ -12,6 +12,8 @@ namespace DominiumLocal.Controllers
     public class AdminController : Controller
     {
         propiedadModel propiedadModel = new propiedadModel();
+        userModel userModel = new userModel();
+
         // GET: Admin
         public ActionResult Propiedades()
         {
@@ -19,21 +21,7 @@ namespace DominiumLocal.Controllers
             var datos = propiedadModel.ConsultarPropiedades(idUsuarioEnSesion);
             return View(datos);
         }
-        public ActionResult Usuarios()
-        {
-            return View();
-        }
-        public ActionResult Vendedores()
-        {
-            return View();
-        }
 
-        //Seccion de Propiedades
-        [HttpGet]
-        public ActionResult AgregarPropiedad()
-        {
-            return View();
-        }
 
         [HttpPost]
         public ActionResult AgregarPropiedad(HttpPostedFileBase ImgPropiedad, propiedadEntity entidad)
@@ -63,6 +51,72 @@ namespace DominiumLocal.Controllers
                 return View();
             }
         }
+
+        public ActionResult Perfil()
+        {
+            long iduser = Convert.ToInt64(Session["UserID"]);
+            int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
+            var usuario = userModel.ConsultaUsuario(iduser);
+
+            // Obtener propiedades del usuario (ajusta según tu lógica)
+            var propiedades = propiedadModel.ConsultarPropiedades(idUsuarioEnSesion).Take(3);
+
+            ViewBag.Usuario = usuario;
+            ViewBag.Propiedades = propiedades;
+
+            return View(usuario);
+        }
+
+
+        public ActionResult EditarPerfil()
+        {
+            long iduser = Convert.ToInt64(Session["UserID"]);
+            var datos = userModel.ConsultaUsuario(iduser);
+            return View(datos);
+        }
+
+
+        [HttpPost]
+        public ActionResult ActualizarPerfil(HttpPostedFileBase ImgPerfil, usersEntity entidad)
+        {
+            string respuesta = userModel.ActualizarPerfil(entidad);
+
+            if (respuesta == "OK")
+            {
+                if (ImgPerfil != null)
+                {
+                    string extension = Path.GetExtension(Path.GetFileName(ImgPerfil.FileName));
+                    string ruta = AppDomain.CurrentDomain.BaseDirectory + "profiles\\" + entidad.UserID + extension;
+                    ImgPerfil.SaveAs(ruta);
+
+                    entidad.ProfilePicture = "/profiles/" + entidad.UserID + extension;
+                    entidad.UserID = entidad.UserID;
+
+                    userModel.ActualizarRutaImagenPerfil(entidad);
+                }
+
+
+                return RedirectToAction("Perfil", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido editar el perfil";
+                return View();
+            }
+        }
+
+        public ActionResult Vendedores()
+        {
+            return View();
+        }
+
+        //Seccion de Propiedades
+        [HttpGet]
+        public ActionResult AgregarPropiedad()
+        {
+            return View();
+        }
+
 
 
 

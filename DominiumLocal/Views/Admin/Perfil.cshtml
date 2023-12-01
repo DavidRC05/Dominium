@@ -1,0 +1,83 @@
+﻿@model DominiumLocal.Entity.usersEntity
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link rel="stylesheet" href="~/template/assets/css/stylespage.css">
+
+<div class="row py-5 px-4">
+    <div class="col-md-5 mx-auto">
+        <!-- Profile widget -->
+        <div class="">
+            <div class="px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3">
+                        @if (string.IsNullOrEmpty(Model.ProfilePicture))
+                        {
+                            <!-- Si la propiedad ProfilePicture del modelo está vacía, muestra la imagen predeterminada -->
+                            <img src="~/Images/defaultProfile.png" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        }
+                        else
+                        {
+                            <!-- Si hay una imagen en la propiedad ProfilePicture del modelo, muéstrala -->
+                            <img src="@Model.ProfilePicture" alt="..." style="width: 150px; height:150px; border-radius:10px;" class="rounded mb-2 img-thumbnail">
+                        }
+
+                        <a href="@Url.Action("EditarPerfil", "Admin")" class="btn btn-outline-dark btn-sm btn-block">Editar perfil</a>
+
+                    </div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">@Model.FirstName @Model.LastName</h4>
+                        <p class="small mb-4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <!-- Agrega aquí la ubicación si está disponible -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3">
+                <h5 class="mb-0">Descripción</h5>
+                <div class="p-4 rounded shadow-sm bg-light">
+                    @if (string.IsNullOrEmpty(Model.Description))
+                    {
+                        <!-- Si la propiedad Descripcion del modelo está vacía, muestra un texto predeterminado -->
+                        <p class="font-italic mb-0">Amante del vender!</p>
+                    }
+                    else
+                    {
+                        <!-- Si hay una descripción en la propiedad Descripcion del modelo, muéstrala -->
+                        <p class="font-italic mb-0">@Model.Description</p>
+                    }
+                </div>
+            </div>
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Propiedades Subidas</h5>
+                    <a href="#" class="btn btn-link text-muted">Ver Todas</a>
+                </div>
+                <div class="row">
+                    @foreach (var item in ViewBag.Propiedades)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card propiedad provincia-@item.ProvinciaID">
+                                <a href="@Url.Action("DetallesPropiedadId", "Home", new { propiedadId = item.PropiedadID })">
+                                    <img src="@item.Imagen" class="card-img-top" style="width: 170px; height: 140px;" alt="Property Image">
+                                </a>
+                                <div class="card-body">
+                                    <span class="category categoria-@item.Categoria">@item.Categoria</span>
+                                    <h5 class="card-title">@item.UbicacionExacta</h5>
+                                    <p class="card-text">Precio: @item.Precio.ToString("C")</p>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="@Url.Action("DetallesPropiedadId", "Home", new { propiedadId = item.PropiedadID })" class="btn btn-primary">Ver Detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

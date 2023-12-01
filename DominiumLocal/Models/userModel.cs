@@ -52,5 +52,37 @@ namespace DominiumLocal.Models
             }
         }
 
+        public usersEntity ConsultaUsuario(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ConsultaUsuario?q=" + q;
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<usersEntity>().Result;
+            }
+        }
+
+        public string ActualizarRutaImagenPerfil(usersEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = urlApi + "ActualizarRutaImagenPerfil";
+                JsonContent contenido = JsonContent.Create(entidad);
+                var resp = client.PutAsync(url, contenido).Result;
+                return resp.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        public string ActualizarPerfil(usersEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ActualizarPerfil";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(url, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
     }
 }

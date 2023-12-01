@@ -1,0 +1,76 @@
+﻿@model DominiumLocal.Entity.usersEntity
+
+@{
+    ViewBag.Title = "EditarPerfil";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-12 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5 position-relative">
+                @using (Html.BeginForm("ActualizarPerfil", "Admin", FormMethod.Post, new { @class = "pt-3", @enctype = "multipart/form-data" }))
+                {
+                    if (Model.ProfilePicture != null)
+                    {
+                        <img class="rounded mb-2 img-thumbnail mt-5 mb-2" style="width: 150px; height:200px; border-radius: 20px;" src="@Model.ProfilePicture">
+                    }
+                    else
+                    {
+                        <img class="rounded mb-2 img-thumbnail mt-5 mb-2" style="width: 150px; height:200px; border-radius: 20px;" src="~/Images/defultProfile.png">
+                    }
+                    <br>
+                    <span class="font-weight-bold">@Model.FirstName @Model.LastName</span> <br>
+                    <span class="text-black-50">@Model.Email</span>
+
+                }
+            </div>
+        </div>
+        <div class="col-md-12 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Editar Perfil</h4>
+                </div>
+
+                @using (Html.BeginForm("ActualizarPerfil", "Admin", FormMethod.Post, new { @class = "pt-3", @enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(m => m.UserID)
+            <div class="row mb-5 ml-2">
+                <label for="ImgPerfil" class="btn btn-primary btn-icon position-absolute">
+                    <i class="fas fa-camera"></i>
+                    <span>Actualizar Foto</span>
+                    <input type="file" id="ImgPerfil" name="ImgPerfil" style="display:none;">
+                </label>
+            </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels">Nombre</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Nombre" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Apellido</label>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Apellido" })
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Email</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Correo electrónico" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Teléfono</label>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Número de teléfono" })
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Descripción</label>
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Descripción" })
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

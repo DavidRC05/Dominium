@@ -3709,6 +3709,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\DefaulProfilePic.png" />
+    <Content Include="Images\defultProfile.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -4237,10 +4239,12 @@
     <Content Include="Views\Admin\Menu.cshtml" />
     <Content Include="Views\Home\Propiedades.cshtml" />
     <Content Include="Views\Home\DetallesPropiedad.cshtml" />
+    <Content Include="Views\Admin\Perfil.cshtml" />
+    <Content Include="Views\Admin\EditarPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
+    <Folder Include="profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
