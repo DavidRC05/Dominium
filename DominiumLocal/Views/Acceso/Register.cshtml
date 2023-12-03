@@ -1,4 +1,48 @@
-﻿@model DominiumLocal.Entity.usersEntity
+﻿<style>
+    .gradient-custom {
+        background-color: #48466d;
+        background: linear-gradient(45deg, #48466d, #6e6c94);
+    }
+
+    .card-registration {
+        background-color: white;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px
+    }
+
+    .form-label {
+        color: #48466d;
+    }
+
+    .form-control {
+        border-color: #48466d;
+        color: #48466d;
+    }
+
+    .btn-primary {
+        background-color: #48466d;
+        border-color: #48466d;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+</style>
+
+@model DominiumLocal.Entity.usersEntity
 
 @{
     ViewBag.Title = "Registro";
@@ -12,24 +56,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@ViewBag.Title</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Aquí puedes incluir tus estilos específicos para esta vista -->
     <link rel="stylesheet" href="../../assets/css/register.css" />
 
-    <!-- Si necesitas estilos generales, puedes incluirlos aquí o referenciar a una hoja de estilo global -->
     <link rel="stylesheet" href="ruta/a/tu/estilo/global.css" />
 </head>
-<body>
+<body class="gradient-custom">
     <!-- seccion del formulario de registro -->
-    <section class="vh-100 gradient-custom">
+    <section class="vh-100 ">
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Formulario de Registro</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center" style="color: #48466d ">Registrarse a Dominium</h3>
                             @if (ViewBag.MensajeUsuario != null)
                             {
                                 <div class="alert alert-danger">
@@ -110,7 +151,9 @@
                                     </div>
                                 </div>
                                 <div class="mt-4 pt-2 d-flex justify-content-center">
-                                    <input class="btn btn-primary btn-lg" type="submit" value="Enviar" />
+                                    <a class="btn btn-secondary btn-lg" style="margin: 10px" href="@Url.Action("Index", "Home")">Cancelar</a>
+                                    <input class="btn btn-primary btn-lg mr-2"  type="submit" style="background-color: #48466d; margin: 10px" value="Enviar" />
+
                                 </div>
                             }
                         </div>
