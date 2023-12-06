@@ -1,0 +1,117 @@
+﻿@model DominiumLocal.Entity.propiedadEntity
+@{
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    ViewBag.Title = "ActualizarPropiedad";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-center mb-4">
+        <h2>Actualizar Propiedad</h2>
+    </div>
+    @using (Html.BeginForm("ActualizarPropiedad", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.PropiedadID)
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    @Html.DropDownListFor(m => m.Categoria, new SelectList(new[]
+                    {
+                         new SelectListItem { Value = "", Text = "Seleccionar categoría", Disabled = true, Selected = true },
+                         new SelectListItem { Value = "Apartamento", Text = "Apartamento" },
+                         new SelectListItem { Value = "Casa", Text = "Casa" },
+                         new SelectListItem { Value = "Quinta", Text = "Quinta" },
+                    }, "Value", "Text"), new { @class = "form-control form-control-lg", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Categoria, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Precio</label>
+                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control form-control-lg", placeholder = "Ej. 1000000", type = "number", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Provincia</label>
+                    @Html.DropDownListFor(m => m.ProvinciaID, new SelectList(new[]
+                    {
+                         new SelectListItem { Value = "", Text = "Seleccione una Provincia", Disabled = true },
+                         new SelectListItem { Value = "1", Text = "San Jose" },
+                         new SelectListItem { Value = "2", Text = "Limon" },
+                         new SelectListItem { Value = "3", Text = "Puntarenas" },
+                         new SelectListItem { Value = "4", Text = "Heredia" },
+                         new SelectListItem { Value = "5", Text = "Alajuela" },
+                         new SelectListItem { Value = "6", Text = "Guanacaste" },
+                         new SelectListItem { Value = "7", Text = "Cartago" },
+                     }, "Value", "Text"), new { @class = "form-control form-control-lg" })
+                    @Html.ValidationMessageFor(m => m.ProvinciaID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Ubicacion</label>
+                    @Html.TextBoxFor(m => m.UbicacionExacta, new { @class = "form-control form-control-lg", placeholder = "Ej. 18 Old Street Miami, OR 97219", required = "required" })
+                    @Html.ValidationMessageFor(m => m.UbicacionExacta, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Habitaciones</label>
+                    @Html.TextBoxFor(m => m.Habitaciones, new { @class = "form-control form-control-lg", placeholder = "Ej. 4", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Habitaciones, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Baños</label>
+                    @Html.TextBoxFor(m => m.Banos, new { @class = "form-control form-control-lg", placeholder = "Ej. 4", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Banos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Area</label>
+                    @Html.TextBoxFor(m => m.Area, new { @class = "form-control form-control-lg", placeholder = "Ej. 400m", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Area, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Pisos</label>
+                    @Html.TextBoxFor(m => m.Piso, new { @class = "form-control form-control-lg", placeholder = "Ej. 2", required = "required" })
+                    @Html.ValidationMessageFor(m => m.Piso, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Estacionamientos</label>
+                    @Html.TextBoxFor(m => m.Estacionamiento, new { @class = "form-control form-control-lg", placeholder = "Ej. 3", type = "number" })
+                    @Html.ValidationMessageFor(m => m.Estacionamiento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="form-group">
+                    <label for="Imagen" class="form-label">Imagen</label>
+                    <input type="file" id="ImgPropiedad" name="ImgPropiedad" class="form-control form-control-lg" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mb-3">Actualizar Propiedad</button>
+        </div>
+
+    }
+</div>
+

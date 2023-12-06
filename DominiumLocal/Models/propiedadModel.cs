@@ -26,6 +26,16 @@ namespace DominiumLocal.Models
             }
         }
 
+        public string ActualizarPropiedad(propiedadEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ActualizarPropiedad";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(url, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
 
         public string ActualizarRutaImagen(propiedadEntity entidad)
         {
@@ -75,7 +85,6 @@ namespace DominiumLocal.Models
             }
         }
 
-
         public propiedadEntity ConsultaPropiedad(long q)
         {
             using (var client = new HttpClient())
@@ -83,6 +92,17 @@ namespace DominiumLocal.Models
                 var url = urlApi + "ConsultaPropiedad?q=" + q;
                 var res = client.GetAsync(url).Result;
                 return res.Content.ReadFromJsonAsync<propiedadEntity>().Result;
+            }
+        }
+
+        public string EliminarPropiedad(propiedadEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "EliminarPropiedad";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(url, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
             }
         }
     }

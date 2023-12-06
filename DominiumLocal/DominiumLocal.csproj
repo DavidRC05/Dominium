@@ -4175,7 +4175,9 @@
     <Content Include="template\assets\images\banner-01.jpg" />
     <Content Include="template\assets\images\banner-02.jpg" />
     <Content Include="template\assets\images\banner-03.jpg" />
+    <Content Include="template\assets\images\contact-bg.jpg" />
     <Content Include="template\assets\images\domLogo.png" />
+    <Content Include="template\assets\images\page-heading-bg.jpg" />
     <Content Include="template\assets\js\counter.js" />
     <Content Include="template\assets\js\custom.js" />
     <Content Include="template\assets\js\isotope.min.js" />
@@ -4221,6 +4223,7 @@
     <Content Include="Views\Admin\Perfil.cshtml" />
     <Content Include="Views\Admin\EditarPerfil.cshtml" />
     <Content Include="Views\Home\PerfilVendedor.cshtml" />
+    <Content Include="Views\Admin\ActualizarPropiedad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

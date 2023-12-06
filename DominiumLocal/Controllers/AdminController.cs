@@ -52,6 +52,60 @@ namespace DominiumLocal.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ActualizarPropiedad(long q)
+        {
+            var datos = propiedadModel.ConsultaPropiedad(q);
+            return View(datos);
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarPropiedad(HttpPostedFileBase ImgPropiedad, propiedadEntity entidad)
+        {
+            string respuesta = propiedadModel.ActualizarPropiedad(entidad);
+
+            if (respuesta == "OK")
+            {
+                if (ImgPropiedad != null)
+                {
+                    string extension = Path.GetExtension(Path.GetFileName(ImgPropiedad.FileName));
+                    string ruta = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + entidad.PropiedadID + extension;
+                    ImgPropiedad.SaveAs(ruta);
+
+                    entidad.Imagen = "/Images/" + entidad.PropiedadID + extension;
+                    entidad.PropiedadID = entidad.PropiedadID;
+
+                    propiedadModel.ActualizarRutaImagen(entidad);
+                }
+                return RedirectToAction("Propiedades", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido actualizar la información del producto";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EliminarPropiedad(long q)
+        {
+            var entidad = new propiedadEntity();
+            entidad.PropiedadID = q;
+
+            string respuesta = propiedadModel.EliminarPropiedad(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("Propiedades", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del producto";
+                return View();
+            }
+        }
+
+
         public ActionResult Perfil()
         {
             long iduser = Convert.ToInt64(Session["UserID"]);

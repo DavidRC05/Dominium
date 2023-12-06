@@ -56,6 +56,61 @@ namespace DominiumAPI.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("ActualizarPropiedad")]
+        public string ActualizarProducto(TPropiedades tPropiedadad)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var datos = context.TPropiedades.Where(x => x.PropiedadID == tPropiedadad.PropiedadID).FirstOrDefault();
+                datos.Categoria = tPropiedadad.Categoria;
+                datos.Precio = tPropiedadad.Precio;
+                datos.ProvinciaID = tPropiedadad.ProvinciaID;
+                datos.Habitaciones = tPropiedadad.Habitaciones;
+                datos.Banos = tPropiedadad.Banos;
+                datos.Area = tPropiedadad.Area;
+                datos.Piso = tPropiedadad.Piso;
+                datos.Estacionamiento = tPropiedadad.Estacionamiento;
+                context.SaveChanges();
+                return "OK";
+            }
+        }
+
+        [HttpGet]
+        [Route("ConsultaPropiedad")]
+        public TPropiedades ConsultaPropiedad(long q)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return (from x in context.TPropiedades
+                        where x.PropiedadID == q
+                        select x).FirstOrDefault();
+            }
+        }
+
+        [HttpPut]
+        [Route("EliminarPropiedad")]
+        public string EliminarPropiedad(TPropiedades tPropiedad)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var propiedadAEliminar = context.TPropiedades.FirstOrDefault(x => x.PropiedadID == tPropiedad.PropiedadID);
+
+                if (propiedadAEliminar != null)
+                {
+                    context.TPropiedades.Remove(propiedadAEliminar);
+                    context.SaveChanges();
+                    return "OK";
+                }
+                else
+                {
+                    return "La propiedad no fue encontrada";
+                }
+            }
+        }
+
+
 
         [HttpPut]
         [Route("ActualizarRutaImagen")]
