@@ -30,6 +30,9 @@
                             @ViewBag.MensajeUsuario
                         </div>
                     }
+                <div class="d-flex justify-content-center mb-3">
+                    <h2>Inicio de Sesión</h2>
+                </div>
                     <!-- Connect with the access controller -->
                     @using (Html.BeginForm("Login", "Acceso", FormMethod.Post, new { @class = "pt-3" }))
                     {
@@ -45,18 +48,20 @@
                             @Html.LabelFor(m => m.Password, new { @class = "form-label" })
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Contraseña" })
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#!" class="text-body">¿Olvidó su contraseña?</a>
-                        </div>
-                        <div class="text-center text-lg-start mt-4 pt-2">
+                        <div class="d-flex justify-content-center text-center text-lg-start mt-4 pt-2">
                             <!-- Submit button with color #48466d -->
-                            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4" style="background-color: #48466d;">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4" style="background-color: #48466d; border:none;">
                                 Iniciar sesión
                             </button>
+                        </div>
+                        <div class="d-flex justify-content-center text-center text-lg-start pt-2">
                             <!-- Registration link -->
                             <p class="small fw-bold mt-2 pt-1 mb-0">
                                 ¿No tiene una cuenta? <a href="@Url.Action("Register", "Acceso")" class="text-decoration-none" style="color: #8783c7;">Registrar</a>
                             </p>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a href="@Url.Action("RecuperarCuenta","Acceso")" class="text-body">¿Olvidó su contraseña?</a>
                         </div>
                     }
                 </div>

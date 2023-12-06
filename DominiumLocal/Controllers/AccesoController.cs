@@ -78,5 +78,27 @@ namespace DominiumLocal.Controllers
             }
         }
 
+
+        [HttpGet]
+        public ActionResult RecuperarCuenta()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RecuperarCuenta(usersEntity entidad)
+        {
+            var resp = userModel.RecuperarCuenta(entidad);
+
+            if (resp == "OK")
+            {
+                return RedirectToAction("Login", "Acceso");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha enviado el correo con su información";
+                return View();
+            }
+        }
     }
 }

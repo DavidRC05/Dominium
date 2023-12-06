@@ -1,0 +1,45 @@
+﻿@model DominiumLocal.Entity.usersEntity
+
+@{
+    ViewBag.Title = "RecuperarCuenta";
+}
+<style>
+    .brand-logo {
+        width: 400px; /* ajusta el ancho según tus necesidades */
+        height: 80px; /* ajusta la altura según tus necesidades */
+        object-fit: cover; /* o ajusta el valor según tus necesidades (cover, contain, fill, etc.) */
+    }
+</style>
+<div class="content-wrapper d-flex align-items-center auth" style="margin-top: 180px; margin-bottom: 50px">
+    <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-center py-5 px-4 px-sm-5">
+
+                <img src="~/template/assets/images/domLogo.png" alt="logo" style="" class="brand-logo mb-2">
+
+                @if (ViewBag.MensajeUsuario != null)
+                {
+                    <div class="alert alert-info" role="alert">
+                        @ViewBag.MensajeUsuario
+                    </div>
+                }
+
+                @using (Html.BeginForm("RecuperarCuenta", "Acceso", FormMethod.Post, new { @class = "pt-3" }))
+                {
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" placeholder="Email" name="Email" required>
+                    </div>
+                    <div class="mt-5">
+                        <button type="submit" style="background-color: #343957; border: none; " class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                            RECUPERAR CUENTA
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-4 font-weight-light">
+                        ¿Ya tienes una cuenta? <a href="@Url.Action("Login", "Acceso")" style="color: #4b527d;" class="text-primary">Iniciar Sesión</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
