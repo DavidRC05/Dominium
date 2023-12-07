@@ -4228,6 +4228,8 @@
     <Content Include="Views\Admin\ActualizarPropiedad.cshtml" />
     <Content Include="Views\Acceso\RecuperarCuenta.cshtml" />
     <Content Include="Views\Admin\Calendario.cshtml" />
+    <Content Include="Views\Admin\AdministrarVisitas.cshtml" />
+    <Content Include="Views\Admin\ActualizarVisita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

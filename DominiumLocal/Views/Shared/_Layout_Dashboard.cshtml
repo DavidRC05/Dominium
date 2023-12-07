@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/template/assets/css/fontawesome.css">
 
     <link href="~/dashboard/css/style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
 
     <style>
@@ -101,13 +101,18 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="@Url.Action("AgendarVisita","Admin")" , aria-expanded="false">
-                            <i class="icon icon-app-store"></i><span class="nav-text">Menu Principal</span>
+                        <a href="@Url.Action("Perfil","Admin")" aria-expanded="false">
+                            <i class="icon icon-single-04"></i><span class="nav-text">Perfil</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Perfil","Admin")" aria-expanded="false">
-                            <i class="icon icon-single-04"></i><span class="nav-text">Perfil</span>
+                        <a href="@Url.Action("AgendarVisita","Admin")" , aria-expanded="false">
+                            <i class="icon icon-app-store"></i><span class="nav-text">Agendar Visita</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AdministrarVisitas", "Admin")" aria-expanded="false">
+                            <i class="fa fa-eye"></i><span class="nav-text">Administrar Visitas</span>
                         </a>
                     </li>
                     <li>
@@ -118,7 +123,7 @@
 
                     <li>
                         <a href="@Url.Action("Propiedades","Admin")" aria-expanded="false">
-                            <i class="icon icon-world-2"></i><span class="nav-text">Administracion de Propiedades</span>
+                            <i class="icon icon-world-2"></i><span class="nav-text">Administrar Propiedades</span>
                         </a>
                     </li>
                     <li>

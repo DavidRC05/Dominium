@@ -197,6 +197,7 @@ namespace DominiumAPI.Controllers
                         
                         var nuevaVisita = new Visitas
                         {
+                            Id = visita.Id,
                             NombreVisitante = visita.NombreVisitante,
                             PropiedadVisitada = visita.PropiedadVisitada,
                             FechaVisita = visita.FechaVisita,
@@ -239,6 +240,18 @@ namespace DominiumAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("VerVisitas")]
+        public List<Visitas> VerVisitas()
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Visitas.ToList();
+            }
+
+        }
+
 
         [HttpGet]
         [Route("ConsultarPropiedades/{idVendedor}")]
@@ -248,6 +261,57 @@ namespace DominiumAPI.Controllers
             {
                 context.Configuration.LazyLoadingEnabled = false;
                 return context.TPropiedades.Where(p => p.IDVendedor == idVendedor).ToList();
+            }
+        }
+
+
+        [HttpPut]
+        [Route("ActualizarVisita")]
+        public string ActualizarVisita(Visitas tVisitas)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var datos = context.Visitas.Where(x => x.Id == tVisitas.Id).FirstOrDefault();
+                datos.NombreVisitante = tVisitas.NombreVisitante;
+                datos.PropiedadVisitada = tVisitas.PropiedadVisitada;
+                datos.FechaVisita = tVisitas.FechaVisita;
+                datos.EstadoVisita = tVisitas.EstadoVisita;
+                context.SaveChanges();
+                return "OK";
+            }
+        }
+
+        [HttpGet]
+        [Route("ConsultaVisita")]
+        public Visitas ConsultaVisita(int q)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return (from x in context.Visitas
+                        where x.Id == q
+                        select x).FirstOrDefault();
+            }
+        }
+
+        [HttpPut]
+        [Route("EliminarVisita")]
+        public string EliminarVisita(Visitas tVisita)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                var VisitaAEliminar = context.Visitas.FirstOrDefault(x => x.Id == tVisita.Id);
+
+                if (VisitaAEliminar != null)
+                {
+                    context.Visitas.Remove(VisitaAEliminar);
+                    context.SaveChanges();
+                    return "OK";
+                }
+                else
+                {
+                    return "La Visita no fue encontrada";
+                }
             }
         }
 

@@ -23,7 +23,7 @@ namespace DominiumLocal.Models
             }
         }
 
-        public List<visitaEntity> VerVisitas(int idVendedor)
+        public List<visitaEntity> GetVisitas(int idVendedor)
         {
             using (var client = new HttpClient())
             {
@@ -39,6 +39,56 @@ namespace DominiumLocal.Models
 
                 // Manejar errores si es necesario
                 return null;
+            }
+        }
+
+        public List<visitaEntity> VerVisitas()
+        {
+            using (var client = new HttpClient())
+            {
+
+                string url = urlApi + "VerVisitas";
+                var resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    var eventos = resp.Content.ReadFromJsonAsync<List<visitaEntity>>().Result;
+                    return eventos;
+                }
+
+                // Manejar errores si es necesario
+                return null;
+            }
+        }
+        public visitaEntity ConsultaVisita(int q)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ConsultaVisita?q=" + q;
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<visitaEntity>().Result;
+            }
+        }
+
+        public string ActualizarVisita(visitaEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ActualizarVisita";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(url, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        public string EliminarVisita(visitaEntity entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "EliminarVisita";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(url, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
             }
         }
 

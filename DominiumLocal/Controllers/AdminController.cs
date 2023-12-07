@@ -161,9 +161,11 @@ namespace DominiumLocal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Vendedores()
+        public ActionResult AdministrarVisitas()
         {
-            return View();
+            int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
+            var eventos = visitaModel.GetVisitas(idUsuarioEnSesion);
+            return View(eventos);
         }
 
         //Seccion de Propiedades
@@ -200,13 +202,53 @@ namespace DominiumLocal.Controllers
         public ActionResult Calendario()
         {
             int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
-            var eventos = visitaModel.VerVisitas(idUsuarioEnSesion);
+            var eventos = visitaModel.GetVisitas(idUsuarioEnSesion);
             return View(eventos);
         }
 
 
 
+        [HttpGet]
+        public ActionResult EliminarVisita(int q)
+        {
+            var entidad = new visitaEntity();
+            entidad.Id = q;
+
+            string respuesta = visitaModel.EliminarVisita(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("AdministrarVisitas", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del producto";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ActualizarVisita(int q)
+        {
+            var datos = visitaModel.ConsultaVisita(q);
+            return View(datos);
+        }
 
 
+        [HttpPost]
+        public ActionResult ActualizarVisita(visitaEntity entidad)
+        {
+            string respuesta = visitaModel.ActualizarVisita(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("AdministrarVisitas", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido actualizar la información de la visita";
+                return View();
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace DominiumLocal.Entity
 {
     public class visitaEntity
     {
-        public int VisitaId { get; set; }
+        public int Id { get; set; }
         public int VendedorId { get; set; }
         public string NombreVisitante { get; set; }
         public string PropiedadVisitada { get; set; }

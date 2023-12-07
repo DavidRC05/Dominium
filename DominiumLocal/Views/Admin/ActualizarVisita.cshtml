@@ -1,0 +1,54 @@
+﻿@model DominiumLocal.Entity.visitaEntity
+@{
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    ViewBag.Title = "ActualizarVisita";
+}
+
+<section class="container mt-5">
+    <div class="container">
+        @using (Html.BeginForm("ActualizarVisita", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <div>
+                <form id="booking-form" method="POST">
+                    <div class="d-flex justify-content-center mb-2">
+                        <h2>Agendar una Visita</h2>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.NombreVisitante, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.NombreVisitante, new { @class = "form-control", required = "required" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.PropiedadVisitada, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.PropiedadVisitada, new { @class = "form-control", required = "required" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.FechaVisita, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.FechaVisita, new { type = "datetime-local", @class = "form-control", required = "required" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.EstadoVisita, new { @class = "form-label" })
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.EstadoVisita, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Pendiente", Value = "Pendiente" },
+                                new SelectListItem { Text = "Confirmada", Value = "Confirmada" },
+                                new SelectListItem { Text = "Cancelada", Value = "Cancelada" }
+                            }, "Seleccionar estado", new { @class = "form-select", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-primary m-1" type="submit" id="agendar-visita">Actualizar</button>
+                        <button class="btn btn-secondary m-1" type="reset" id="borrar-datos">Borrar Datos</button>
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+</section>
+
