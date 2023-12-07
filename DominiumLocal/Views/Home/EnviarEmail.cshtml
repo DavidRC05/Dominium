@@ -1,0 +1,84 @@
+﻿@model DominiumLocal.Entity.emailEntity
+@{
+    ViewBag.Title = "EnviarEmail";
+}
+
+<!--Section: Contact v.2-->
+<section class="mb-4">
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Contacto</h2>
+    <!--Section description-->
+    <p class="text-center w-responsive mx-auto mb-5">
+        ¿Tienes interés en alguna propiedad?<br>
+        Ponte en contacto con el vendedor para agendar una visita.
+    </p>
+
+    <div class="row">
+        <!--Grid column-->
+        <div class="col-md-9 mb-md-0 mb-5">
+            @using (Html.BeginForm("EnviarEmail", "Home", FormMethod.Post, new { id = "contact-form", name = "contact-form" }))
+            {
+
+
+                @Html.AntiForgeryToken()
+
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <label>Para</label>
+                            @Html.TextBoxFor(model => model.Para, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <label>Asunto</label>
+                            @Html.TextBoxFor(model => model.Asunto, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <label>Mensaje</label>
+                            @Html.TextAreaFor(model => model.Mensaje, new { @class = "form-control md-textarea" })
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                        <div class="md-form">
+                            <label>Tu email</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                        <div class="md-form">
+                            <label>Contraseña</label>
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control md-textarea" })
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+
+                <div class="text-center text-md-left mt-3">
+                    <button type="submit" class="btn btn-dark">Enviar</button>
+                </div>
+                <div class="status"></div>
+            }
+

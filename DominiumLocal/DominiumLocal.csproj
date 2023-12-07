@@ -167,6 +167,7 @@
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entity\emailEntity.cs" />
     <Compile Include="Entity\propiedadEntity.cs" />
     <Compile Include="Entity\usersEntity.cs" />
     <Compile Include="Entity\visitaEntity.cs" />
@@ -4230,6 +4231,7 @@
     <Content Include="Views\Admin\Calendario.cshtml" />
     <Content Include="Views\Admin\AdministrarVisitas.cshtml" />
     <Content Include="Views\Admin\ActualizarVisita.cshtml" />
+    <Content Include="Views\Home\EnviarEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,10 @@ using DominiumLocal.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -96,6 +99,38 @@ namespace DominiumLocal.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult EnviarEmail(string para, string asunto, string mensaje, string email, string contrasena)
+        {
+            using (MailMessage mm = new MailMessage(email, para))
+            {
+                mm.Subject = asunto;
+                mm.Body = mensaje;
+
+                // Configuración del cliente SMTP
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
+                {
+                    smtp.EnableSsl = true;
+                    smtp.Port = 25;
+
+                    // Credenciales de inicio de sesión
+                    NetworkCredential cred = new NetworkCredential(email, contrasena);
+                    smtp.Credentials = cred;
+
+                    // Envío del correo
+                    smtp.Send(mm);
+
+                    ViewBag.Mensaje = "Email Enviado";
+                }
+            }
+
+            // Puedes redirigir a otra vista o mantener la misma, según tus necesidades
+            return RedirectToAction("Propiedades", "Home");
+        }
+
+
+
         [HttpGet]
         public async Task<ActionResult> PerfilV(int vendedorID, int propiedadID)
         {
@@ -111,8 +146,7 @@ namespace DominiumLocal.Controllers
 
                 if (propiedad != null)
                 {
-                    ViewBag.Propiedad = new List<propiedadEntity> { propiedad }; // Convierte el objeto en una lista
-                    return View("PerfilVendedor");
+                    ViewBag.Propiedad = new List<propiedadEntity> { propiedad };
                 }
                 else
                 {
@@ -123,7 +157,15 @@ namespace DominiumLocal.Controllers
             {
                 return RedirectToAction("Propiedades", "Home");
             }
+
+            // Inicializa el modelo de emailEntity y lo envía a la vista
+            emailEntity modelo = new emailEntity
+            {
+                Para = vendedor.Email, // Puedes establecer el valor predeterminado del destinatario
+            };
+            return View("PerfilVendedor", modelo);
         }
+
 
 
     }
