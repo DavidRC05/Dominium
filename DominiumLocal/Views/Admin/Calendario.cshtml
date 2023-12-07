@@ -1,0 +1,62 @@
+﻿@model List<DominiumLocal.Entity.visitaEntity>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    ViewBag.Title = "Calendario";
+    var visitas = Json.Encode(Model);
+}
+
+<style>
+    .fc-event, .fc-event-dot {
+        background-color: #343957;
+    }
+
+        .fc-event:hover, .fc-event-dot:hover {
+            background-color: black;
+        }
+</style>
+
+<div class="contenido-principal mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var visitasData = @Html.Raw(visitas);
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'es',
+            initialView: 'dayGridMonth',
+            buttonText: {
+                today: 'Hoy'
+            },
+            events: [
+                @foreach (var visita in Model)
+                {
+                    <text>
+                    {
+                        title: '@visita.NombreVisitante',
+                        start: '@visita.FechaVisita.ToString("yyyy-MM-ddTHH:mm:ss")',
+                        end: '@visita.FechaVisita.AddHours(2).ToString("yyyy-MM-ddTHH:mm:ss")',
+                        color: 'white',
+                        textColor: 'white',
+                        description: '@visita.PropiedadVisitada'
+                    },
+                    </text>
+                }
+            ],
+            eventClick: function (info) {
+                alert('Propiedad a visitar -> ' + info.event.extendedProps.description);
+            }
+        });
+
+        calendar.render();
+    });
+</script>

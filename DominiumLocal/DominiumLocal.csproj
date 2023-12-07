@@ -169,11 +169,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entity\propiedadEntity.cs" />
     <Compile Include="Entity\usersEntity.cs" />
+    <Compile Include="Entity\visitaEntity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\propiedadModel.cs" />
     <Compile Include="Models\userModel.cs" />
+    <Compile Include="Models\visitaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4217,7 +4219,7 @@
     <Content Include="Views\Admin\Propiedades.cshtml" />
     <Content Include="Views\Admin\Vendedores.cshtml" />
     <Content Include="Views\Shared\_Layout_Dashboard.cshtml" />
-    <Content Include="Views\Admin\Menu.cshtml" />
+    <Content Include="Views\Admin\AgendarVisita.cshtml" />
     <Content Include="Views\Home\Propiedades.cshtml" />
     <Content Include="Views\Home\DetallesPropiedad.cshtml" />
     <Content Include="Views\Admin\Perfil.cshtml" />
@@ -4225,6 +4227,7 @@
     <Content Include="Views\Home\PerfilVendedor.cshtml" />
     <Content Include="Views\Admin\ActualizarPropiedad.cshtml" />
     <Content Include="Views\Acceso\RecuperarCuenta.cshtml" />
+    <Content Include="Views\Admin\Calendario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

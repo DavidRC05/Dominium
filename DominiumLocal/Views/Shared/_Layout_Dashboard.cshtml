@@ -8,8 +8,10 @@
     <title>Focus - Bootstrap Admin Dashboard </title>
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
     <link rel="stylesheet" href="/template/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+
     <link href="~/dashboard/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
 
     <style>
         .user {
@@ -99,21 +101,21 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="@Url.Action("Menu","Admin")" , aria-expanded="false">
-                            <i class="icon icon-single-04"></i><span class="nav-text">Menu Principal</span>
+                        <a href="@Url.Action("AgendarVisita","Admin")" , aria-expanded="false">
+                            <i class="icon icon-app-store"></i><span class="nav-text">Menu Principal</span>
                         </a>
                     </li>
                     <li>
                         <a href="@Url.Action("Perfil","Admin")" aria-expanded="false">
-                            <i class="icon icon-app-store"></i><span class="nav-text">Perfil</span>
+                            <i class="icon icon-single-04"></i><span class="nav-text">Perfil</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Vendedores","Admin")" aria-expanded="false">
-                            <i class="icon icon-chart-bar-33"></i><span class="nav-text">Administracion de Vendedores</span>
+                        <a href="@Url.Action("Calendario", "Admin")" aria-expanded="false">
+                            <i class="fa fa-calendar"></i><span class="nav-text">Calendario</span>
                         </a>
-
                     </li>
+
                     <li>
                         <a href="@Url.Action("Propiedades","Admin")" aria-expanded="false">
                             <i class="icon icon-world-2"></i><span class="nav-text">Administracion de Propiedades</span>
@@ -158,7 +160,6 @@
     <script src="~/dashboard/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="~/dashboard/vendor/jquery.counterup/jquery.counterup.min.js"></script>
     <script src="~/dashboard/js/dashboard/dashboard-1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 </body>
 

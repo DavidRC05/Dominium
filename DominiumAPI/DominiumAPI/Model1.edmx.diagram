@@ -4,12 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3a6590da90544031ae5ad6564f094833" Name="Diagram1">
+      <Diagram DiagramId="3a6590da90544031ae5ad6564f094833" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="DominiumModel.TUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DominiumModel.TPropiedades" Width="1.5" PointX="4.25" PointY="0.875" />
         <EntityTypeShape EntityType="DominiumModel.TProvincias" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="DominiumModel.FK__TPropieda__IDVen__693CA210" />
         <AssociationConnector Association="DominiumModel.FK__TPropieda__Provi__68487DD7" />
+        <EntityTypeShape EntityType="DominiumModel.Roles" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="DominiumModel.Visitas" Width="1.5" PointX="3" PointY="6.25" />
+        <AssociationConnector Association="DominiumModel.FK__TUsers__Rol__05D8E0BE" />
+        <AssociationConnector Association="DominiumModel.FK__Visitas__IdVende__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

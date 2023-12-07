@@ -13,8 +13,9 @@ namespace DominiumLocal.Controllers
     {
         propiedadModel propiedadModel = new propiedadModel();
         userModel userModel = new userModel();
+        visitaModel visitaModel = new visitaModel();
 
-        // GET: Admin
+
         public ActionResult Propiedades()
         {
             int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
@@ -159,6 +160,7 @@ namespace DominiumLocal.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Vendedores()
         {
             return View();
@@ -171,12 +173,40 @@ namespace DominiumLocal.Controllers
             return View();
         }
 
-
-
-
-        public ActionResult Menu()
+        [HttpGet]
+        public ActionResult AgendarVisita()
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AgendarVisita(visitaEntity entidad)
+        {
+            entidad.VendedorId = Convert.ToInt32(Session["UserID"]);
+            var resp = visitaModel.AgendarVisita(entidad);
+
+            if (resp > 0)
+            {
+                return RedirectToAction("Calendario", "Admin");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha registrado su visita";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Calendario()
+        {
+            int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
+            var eventos = visitaModel.VerVisitas(idUsuarioEnSesion);
+            return View(eventos);
+        }
+
+
+
+
+
     }
 }

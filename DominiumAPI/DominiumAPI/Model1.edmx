@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DominiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreRol" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TPropiedades">
           <Key>
             <PropertyRef Name="PropiedadID" />
@@ -43,6 +50,17 @@
           <Property Name="ProfilePicture" Type="nvarchar" MaxLength="255" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Visitas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVendedor" Type="int" />
+          <Property Name="NombreVisitante" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PropiedadVisitada" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaVisita" Type="datetime" Nullable="false" />
+          <Property Name="EstadoVisita" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <Association Name="FK__TPropieda__IDVen__693CA210">
           <End Role="TUsers" Type="Self.TUsers" Multiplicity="0..1" />
           <End Role="TPropiedades" Type="Self.TPropiedades" Multiplicity="*" />
@@ -67,6 +85,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TUsers__Rol__05D8E0BE">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TUsers">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visitas__IdVende__02FC7413">
+          <End Role="TUsers" Type="Self.TUsers" Multiplicity="0..1" />
+          <End Role="Visitas" Type="Self.Visitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Visitas">
+              <PropertyRef Name="IdVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="ObtenerPropiedadConVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PropiedadID" Type="int" Mode="In" />
         </Function>
@@ -79,9 +121,11 @@
           <Parameter Name="Rol" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DominiumModelStoreContainer">
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TPropiedades" EntityType="Self.TPropiedades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TProvincias" EntityType="Self.TProvincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUsers" EntityType="Self.TUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visitas" EntityType="Self.Visitas" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__TPropieda__IDVen__693CA210" Association="Self.FK__TPropieda__IDVen__693CA210">
             <End Role="TUsers" EntitySet="TUsers" />
             <End Role="TPropiedades" EntitySet="TPropiedades" />
@@ -89,6 +133,14 @@
           <AssociationSet Name="FK__TPropieda__Provi__68487DD7" Association="Self.FK__TPropieda__Provi__68487DD7">
             <End Role="TProvincias" EntitySet="TProvincias" />
             <End Role="TPropiedades" EntitySet="TPropiedades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TUsers__Rol__05D8E0BE" Association="Self.FK__TUsers__Rol__05D8E0BE">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="TUsers" EntitySet="TUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visitas__IdVende__02FC7413" Association="Self.FK__Visitas__IdVende__02FC7413">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="Visitas" EntitySet="Visitas" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -109,6 +161,8 @@
           <NavigationProperty Name="TPropiedades" Relationship="DominiumModel.FK__TPropieda__IDVen__693CA210" FromRole="TUsers" ToRole="TPropiedades" />
           <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Roles" Relationship="DominiumModel.FK__TUsers__Rol__05D8E0BE" FromRole="TUsers" ToRole="Roles" />
+          <NavigationProperty Name="Visitas" Relationship="DominiumModel.FK__Visitas__IdVende__02FC7413" FromRole="TUsers" ToRole="Visitas" />
         </EntityType>
         <EntityContainer Name="DominiumEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TUsers" EntityType="Self.TUsers" />
@@ -133,6 +187,16 @@
           <FunctionImport Name="ObtenerPropiedadConVendedor" ReturnType="Collection(DominiumModel.ObtenerPropiedadConVendedor_Result)">
           <Parameter Name="PropiedadID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Roles" EntityType="DominiumModel.Roles" />
+          <EntitySet Name="Visitas" EntityType="DominiumModel.Visitas" />
+          <AssociationSet Name="FK__TUsers__Rol__05D8E0BE" Association="DominiumModel.FK__TUsers__Rol__05D8E0BE">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="TUsers" EntitySet="TUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visitas__IdVende__02FC7413" Association="DominiumModel.FK__Visitas__IdVende__02FC7413">
+            <End Role="TUsers" EntitySet="TUsers" />
+            <End Role="Visitas" EntitySet="Visitas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TPropiedades">
           <Key>
@@ -199,6 +263,50 @@
           <Property Type="String" Name="Imagen" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="VendedorNombre" Nullable="true" MaxLength="511" />
         </ComplexType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TUsers" Relationship="DominiumModel.FK__TUsers__Rol__05D8E0BE" FromRole="Roles" ToRole="TUsers" />
+        </EntityType>
+        <EntityType Name="Visitas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVendedor" Type="Int32" />
+          <Property Name="NombreVisitante" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PropiedadVisitada" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaVisita" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstadoVisita" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TUsers" Relationship="DominiumModel.FK__Visitas__IdVende__02FC7413" FromRole="Visitas" ToRole="TUsers" />
+        </EntityType>
+        <Association Name="FK__TUsers__Rol__05D8E0BE">
+          <End Type="DominiumModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="DominiumModel.TUsers" Role="TUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TUsers">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visitas__IdVende__02FC7413">
+          <End Type="DominiumModel.TUsers" Role="TUsers" Multiplicity="0..1" />
+          <End Type="DominiumModel.Visitas" Role="Visitas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Visitas">
+              <PropertyRef Name="IdVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -265,6 +373,26 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DominiumModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visitas">
+            <EntityTypeMapping TypeName="DominiumModel.Visitas">
+              <MappingFragment StoreEntitySet="Visitas">
+                <ScalarProperty Name="EstadoVisita" ColumnName="EstadoVisita" />
+                <ScalarProperty Name="FechaVisita" ColumnName="FechaVisita" />
+                <ScalarProperty Name="PropiedadVisitada" ColumnName="PropiedadVisitada" />
+                <ScalarProperty Name="NombreVisitante" ColumnName="NombreVisitante" />
+                <ScalarProperty Name="IdVendedor" ColumnName="IdVendedor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

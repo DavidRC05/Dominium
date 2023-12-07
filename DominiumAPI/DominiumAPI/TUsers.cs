@@ -18,6 +18,7 @@ namespace DominiumAPI
         public TUsers()
         {
             this.TPropiedades = new HashSet<TPropiedades>();
+            this.Visitas = new HashSet<Visitas>();
         }
     
         public int UserID { get; set; }
@@ -32,5 +33,8 @@ namespace DominiumAPI
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPropiedades> TPropiedades { get; set; }
+        public virtual Roles Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Visitas> Visitas { get; set; }
     }
 }

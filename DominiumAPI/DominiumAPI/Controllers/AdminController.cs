@@ -3,6 +3,7 @@ using DominiumAPI.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,36 +14,6 @@ namespace DominiumAPI.Controllers
 {
     public class AdminController : ApiController
     {
-        //[HttpPost]
-        //[Route("AgregarPropiedad")]
-        //public long AgregarPropiedad(propiedadEntity entidad)
-        //{
-        //    using (var context = new DominiumEntities1())
-        //    {
-        //        var propiedad = new TPropiedades();
-        //        propiedad.Categoria = entidad.Categoria;
-        //        propiedad.Precio = entidad.Precio;
-        //        propiedad.ProvinciaID = entidad.ProvinciaID;
-        //        propiedad.UbicacionExacta = entidad.UbicacionExacta;
-        //        propiedad.Banos = entidad.Banos;
-        //        propiedad.Habitaciones = entidad.Habitaciones;
-        //        propiedad.Area = entidad.Area;
-        //        propiedad.Piso = entidad.Piso;
-        //        propiedad.Imagen = entidad.Imagen;
-        //        propiedad.Estacionamiento = entidad.Estacionamiento;
-        //        propiedad.IDVendedor = entidad.IDVendedor;
-
-        //        context.TPropiedades.Add(propiedad);
-        //        context.SaveChanges();
-
-        //        if (propiedad != null)
-        //        {
-        //            context.Entry(propiedad).Reference(p => p.TProvincias).Load();
-        //        }
-
-        //        return entidad.PropiedadID;
-        //    }
-        //}
 
         [HttpPost]
         [Route("AgregarPropiedad")]
@@ -149,18 +120,6 @@ namespace DominiumAPI.Controllers
         }
 
         [HttpGet]
-        [Route("ConsultarPropiedades/{idVendedor}")]
-        public List<TPropiedades> ConsultarProductos(int idVendedor)
-        {
-            using (var context = new DominiumEntities1())
-            {
-                context.Configuration.LazyLoadingEnabled = false;
-                return context.TPropiedades.Where(p => p.IDVendedor == idVendedor).ToList();
-            }
-        }
-
-
-        [HttpGet]
         [Route("VerPropiedades")]
         public List<TPropiedades> VerPropiedades()
         {
@@ -221,6 +180,74 @@ namespace DominiumAPI.Controllers
                 datos.Description = tUsers.Description;
                 context.SaveChanges();
                 return "OK";
+            }
+        }
+
+
+        [HttpPost]
+        [Route("AgendarVisita")]
+        public long AgendarVisita(visitaEntity visita)
+        {
+            try
+            {
+                using (var context = new DominiumEntities1())
+                {
+                    if (visita != null && ModelState.IsValid)
+                    {
+                        
+                        var nuevaVisita = new Visitas
+                        {
+                            NombreVisitante = visita.NombreVisitante,
+                            PropiedadVisitada = visita.PropiedadVisitada,
+                            FechaVisita = visita.FechaVisita,
+                            EstadoVisita = visita.EstadoVisita,
+                            IdVendedor = visita.VendedorId
+                        };
+
+                        context.Visitas.Add(nuevaVisita);
+                        context.SaveChanges();
+
+                        return nuevaVisita.Id;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        [HttpGet]
+        [Route("GetVisitas/{idVendedor}")]
+        public List<Visitas> GetVisitas(int idVendedor)
+        {
+            try
+            {
+                using (var context = new DominiumEntities1())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return context.Visitas.Where(p => p.IdVendedor == idVendedor).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
+        [HttpGet]
+        [Route("ConsultarPropiedades/{idVendedor}")]
+        public List<TPropiedades> ConsultarProductos(int idVendedor)
+        {
+            using (var context = new DominiumEntities1())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.TPropiedades.Where(p => p.IDVendedor == idVendedor).ToList();
             }
         }
 
