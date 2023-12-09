@@ -4232,6 +4232,7 @@
     <Content Include="Views\Admin\AdministrarVisitas.cshtml" />
     <Content Include="Views\Admin\ActualizarVisita.cshtml" />
     <Content Include="Views\Home\EnviarEmail.cshtml" />
+    <Content Include="Views\Home\PreguntasFrecuentes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

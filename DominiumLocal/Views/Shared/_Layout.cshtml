@@ -39,7 +39,7 @@
                             <li>
                             @Html.ActionLink("Propiedades", "Propiedades", "Home")
                             </li>
-                            <li><a href="#">Contactanos</a></li>
+                            <li> @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "Home")</li>
                             @if (Session["ConUsuario"] != null && (int)Session["Rol"] == 2)
                             {
                                 <li class="dropdown">

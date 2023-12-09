@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Preguntas Frecuentes";
+}
+
+<div class="page-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="breadcrumb">Costa Rica</span>
+                <h3>Preguntas Frecuentes</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 style="color: black;">Bienvenido a la sección de Preguntas Frecuentes</h2>
+        <p>Encuentra respuestas a las consultas más comunes relacionadas con la publicación y compra de propiedades en nuestra plataforma.</p>
+    </div>
+    <div class="accordion" id="faqAccordion">
+        <!-- Pregunta 1 -->
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-center text-decoration-none text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        ¿Cómo puedo publicar una propiedad?
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Debes registrarte con nosotros y al seleccionar tipo de cuenta pones que quieres ser vendedor.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 2 -->
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-center text-decoration-none text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿Cómo puedo contactar a un vendedor?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Al seleccionar detalles de la propiedad que quieras te aparecera al lado derecho el contacto con el vendedor ya sea por telefono o correo electronico.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 3 -->
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-center text-decoration-none text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        ¿Cómo puedo agendar una visita?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Para agendar una visita debes contactar al vendedor y ponerse de acuerdo.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 4 -->
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-center text-decoration-none text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        ¿Puedo subir cualquier propiedad si soy vendedor?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Si, por el momento Dominium permite que puedas subir cualquier tipo de propiedad si son casas, apartamentos o quintas.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 5 -->
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-center text-decoration-none text-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        ¿Tiene algun costo subir una propiedad?
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                <div class="card-body">
+                    En Dominium no se cobra por subir su propiedad, todos pueden hacerlo de manera gratuita.
+                </div>
+            </div>
+        </div>
+        <!-- Añade más preguntas según sea necesario -->
+    </div>
+</div>
+
+<!-- Enlaces a los recursos de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

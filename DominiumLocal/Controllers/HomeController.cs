@@ -24,6 +24,11 @@ namespace DominiumLocal.Controllers
             return View();
         }
 
+        public ActionResult PreguntasFrecuentes()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Propiedades(int? page, int? pageSize, string provinciaFilter, string categoriaFilter)
         {
