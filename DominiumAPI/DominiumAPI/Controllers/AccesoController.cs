@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
+using BCrypt.Net;
 using System.Web.Http;
 
 namespace DominiumAPI.Controllers
@@ -15,13 +17,25 @@ namespace DominiumAPI.Controllers
 
         [HttpPost]
         [Route("RegistrarCuenta")]
-        public string CRegister(userEntity entidad)
+        public string Register(userEntity entidad)
         {
             try
             {
                 using (var context = new DominiumEntities1())
                 {
-                    context.RegisterUsers(entidad.FirstName, entidad.LastName, entidad.Email, entidad.PhoneNumber, entidad.Password, entidad.Rol);
+                    // Verifica si el email ya está registrado
+                    var existingUser = context.TUsers.FirstOrDefault(u => u.Email == entidad.Email);
+                    if (existingUser != null)
+                    {
+                        // Email ya registrado, retornar un mensaje de error
+                        return "EmailYaExiste";
+                    }
+
+                    // Hashear la contraseña
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(entidad.Password);
+
+                    // Si el email no está registrado, proceder con el registro
+                    context.RegisterUsers(entidad.FirstName, entidad.LastName, entidad.Email, entidad.PhoneNumber, hashedPassword, entidad.Rol);
                     return "OK";
                 }
             }
@@ -30,6 +44,7 @@ namespace DominiumAPI.Controllers
                 return string.Empty;
             }
         }
+
 
         [HttpPost]
         [Route("IniciarSesion")]

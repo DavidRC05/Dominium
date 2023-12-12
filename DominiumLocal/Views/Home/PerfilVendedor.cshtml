@@ -14,7 +14,7 @@
                         @if (string.IsNullOrEmpty(ViewBag.Vendedor.ProfilePicture))
                         {
                             <!-- Si la propiedad ProfilePicture del ViewBag está vacía, muestra la imagen predeterminada -->
-                            <img src="~/Images/defaultProfile.png" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                            <img src="~/Images/defultProfile.png" alt="..." style="width: 150px; height:150px; border-radius:10px;" class="rounded mb-2 img-thumbnail">
                         }
                         else
                         {
@@ -44,8 +44,7 @@
             </div>
             <div class="py-4 px-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="mb-0">Propiedades Subidas</h5>
-                    <a href="#" class="btn btn-link text-muted">Ver Todas</a>
+                    <h5 class="mb-0">Algunas de sus propiedades</h5>
                 </div>
                 <div class="row">
                     @foreach (var item in ViewBag.PropiedadesSubidas)

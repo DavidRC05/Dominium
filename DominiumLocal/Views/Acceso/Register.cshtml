@@ -71,14 +71,20 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center" style="font-weight:bold">Registrarse a Dominium</h2>
-                            @if (ViewBag.MensajeUsuario != null)
+                            @if (TempData["MensajeExito"] != null)
                             {
-                                <div class="alert alert-danger">
-                                    @ViewBag.MensajeUsuario
+                                <div class="alert alert-success">
+                                    @TempData["MensajeExito"]
+                                </div>
+                            }
+                            else if (ViewBag.MensajeExito != null)
+                            {
+                                <div class="alert alert-success">
+                                    @ViewBag.MensajeExito
                                 </div>
                             }
                             <!-- formulario de registro -->
-                            @using (Html.BeginForm("CRegister", "Acceso", FormMethod.Post, new { onsubmit = "return validarContraseñas();" }))
+                            @using (Html.BeginForm("Register", "Acceso", FormMethod.Post, new { onsubmit = "return validarContraseñas();" }))
                             {
                                 <div class="row">
                                     <!-- Nombre -->
@@ -152,7 +158,7 @@
                                 </div>
                                 <div class="mt-4 pt-2 d-flex justify-content-center">
                                     <a class="btn btn-secondary btn-lg" style="margin: 10px" href="@Url.Action("Index", "Home")">Cancelar</a>
-                                    <input class="btn btn-primary btn-lg mr-2"  type="submit" style="background-color: #48466d; border:none; margin: 10px" value="Enviar" />
+                                    <input class="btn btn-primary btn-lg mr-2" type="submit" style="background-color: #48466d; border:none; margin: 10px" value="Enviar" />
 
                                 </div>
                             }

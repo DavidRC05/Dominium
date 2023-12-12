@@ -24,7 +24,7 @@ namespace DominiumLocal.Models
             }
         }
 
-        public string CRegister(usersEntity entidad)
+        public string Register(usersEntity entidad)
         {
             using (var client = new HttpClient())
             {

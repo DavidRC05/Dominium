@@ -61,22 +61,27 @@ namespace DominiumLocal.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult CRegister(usersEntity entidad)
+        public ActionResult Register(usersEntity entidad)
         {
-            var resp = userModel.CRegister(entidad);
+            var resp = userModel.Register(entidad);
 
             if (resp == "OK")
             {
+                TempData["MensajeExito"] = "Se ha registrado con éxito.";
                 return RedirectToAction("Login", "Acceso");
+            }
+            else if (resp == "EmailYaExiste")
+            {
+                ViewBag.MensajeUsuario = "El email ya está registrado.";
             }
             else
             {
                 ViewBag.MensajeUsuario = "No se ha registrado su información";
-                return View();
             }
+            return View();
         }
+
 
 
         [HttpGet]

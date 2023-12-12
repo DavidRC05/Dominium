@@ -1,5 +1,6 @@
 ﻿using DominiumLocal.Entity;
 using DominiumLocal.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,11 +17,17 @@ namespace DominiumLocal.Controllers
         visitaModel visitaModel = new visitaModel();
 
 
-        public ActionResult Propiedades()
+        public ActionResult Propiedades(int? page, int? pageSize)
         {
+            int pageNumber = page ?? 1;
+            int pageSizeNumber = pageSize ?? 4; // ajusta según tus necesidades
+
             int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
             var datos = propiedadModel.ConsultarPropiedades(idUsuarioEnSesion);
-            return View(datos);
+
+            var propiedadesPaginadas = datos.ToPagedList(pageNumber, pageSizeNumber);
+
+            return View(propiedadesPaginadas);
         }
 
 
@@ -107,20 +114,27 @@ namespace DominiumLocal.Controllers
         }
 
 
-        public ActionResult Perfil()
+        public ActionResult Perfil(bool mostrarTodas = false)
         {
-            long iduser = Convert.ToInt64(Session["UserID"]);
-            int idUsuarioEnSesion = Convert.ToInt32(Session["UserID"]);
+            int iduser = Convert.ToInt32(Session["UserID"]);
             var usuario = userModel.ConsultaUsuario(iduser);
 
-            // Obtener propiedades del usuario (ajusta según tu lógica)
-            var propiedades = propiedadModel.ConsultarPropiedades(idUsuarioEnSesion).Take(3);
+            IEnumerable<propiedadEntity> propiedades;
+            if (mostrarTodas)
+            {
+                propiedades = propiedadModel.ConsultarPropiedades(iduser);
+            }
+            else
+            {
+                propiedades = propiedadModel.ConsultarPropiedades(iduser).Take(3);
+            }
 
             ViewBag.Usuario = usuario;
             ViewBag.Propiedades = propiedades;
 
             return View(usuario);
         }
+
 
 
         public ActionResult EditarPerfil()
